@@ -157,14 +157,20 @@
   });
 
   /* ================= loader =================
-     Randările proiectului apar pe rând, fiecare abia după ce s-a încărcat. Ultima e fațada:
-     rama ei se extinde pe tot ecranul, pe același decupaj ca pe copertă, și devine coperta. */
+     Fundalul e făcut din panourile verticale ale fațadei. Randările proiectului apar pe rând
+     în ramă, fiecare abia după ce s-a încărcat. La final rama se strânge în linia din mijloc,
+     iar din linia aceea panourile se deschid spre margini și descoperă coperta. */
   function runLoader() {
     const loader = $('#loader');
     if (!loader || !html.classList.contains('is-loading')) { html.classList.remove('is-loading'); return Promise.resolve(false); }
     if (!motion) { html.classList.remove('is-loading'); return Promise.resolve(false); }
 
     const frame = $('#loader-frame', loader), shots = $$('img', frame);
+    const seamWrap = $('.loader__seams', loader);
+    seamWrap.style.setProperty('--n', N);
+    seamWrap.innerHTML = '<i></i>'.repeat(N);
+    loader.style.background = 'transparent';
+    const seams = $$('i', seamWrap);
     const cap = $('#loader-cap', loader), idx = $('#loader-idx', loader);
     const total = String(shots.length).padStart(2, '0');
     const wait = ms => new Promise(r => setTimeout(r, ms));
@@ -188,11 +194,12 @@
 
     return Promise.race([sequence, safety]).then(() => new Promise(res => {
       shots.forEach(img => gsap.set(img, { clipPath: 'inset(0% 0 0 0)' }));
-      const seams = $('.seams'); if (seams) seams.remove();
-      gsap.timeline({ onComplete: () => { loader.remove(); html.classList.remove('is-loading'); res(true); } })
+      const heroSeams = $('.seams'); if (heroSeams) heroSeams.remove();
+      gsap.timeline({ onComplete: () => { loader.remove(); html.classList.remove('is-loading'); } })
         .to([$('.loader__place', loader), $('.loader__mark', loader), $('.loader__count', loader)], { opacity: 0, duration: .35, ease: 'power2.in' })
-        .to(frame, { width: innerWidth, height: innerHeight, duration: 1.15, ease: 'power3.inOut' }, .1)
-        .to($('.loader__shade', loader), { opacity: 1, duration: .8, ease: 'power2.inOut' }, .45);
+        .to(frame, { clipPath: 'inset(0% 50% 0% 50%)', duration: .55, ease: 'power3.in' }, .05)
+        .to(seams, { scaleY: 0, duration: 1.1, ease: 'power3.inOut', stagger: i => Math.abs(i - (N - 1) / 2) * .07 }, .3)
+        .call(() => res(true), null, .55);
     }));
   }
 
@@ -383,7 +390,7 @@
 
   const arriving = html.classList.contains('is-arriving');
   const intro = {
-    home: fromLoader => { heroIn(!arriving && !fromLoader, fromLoader); tocIn(); },
+    home: fromLoader => { heroIn(!arriving && !fromLoader); tocIn(); },
     ansamblu: () => { pheadIn(); cotaIn(); axoIn(); },
     apt: () => { pheadIn(); },
     contact: () => { contactIn(); },

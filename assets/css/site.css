@@ -311,19 +311,20 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 .menu__tel span { font: 500 .72rem/1 var(--text); color: rgba(242,238,231,.6); }
 .menu-open .bar { color: var(--tencuiala); background: transparent; box-shadow: none; }
 
-/* ---------- loader: randările proiectului apar pe rând, pe măsură ce se încarcă;
-   ultima, fațada, se extinde pe tot ecranul și devine coperta ---------- */
+/* ---------- loader: fundalul e făcut din panourile verticale ale fațadei; randările apar pe
+   rând în ramă, apoi rama se strânge în linia din mijloc și panourile se deschid spre margini ---------- */
 .loader { display: none; }
 .is-loading .loader {
   display: block; position: fixed; inset: 0; z-index: 100; background: var(--antracit); color: var(--tencuiala);
   animation: arc-safety 0s 10s forwards; /* dacă JS nu pornește, loaderul dispare singur */
 }
+.loader__seams { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--n, 12), 1fr); }
+.loader__seams i { background: var(--antracit); transform-origin: 50% 0; box-shadow: inset -1px 0 0 rgba(242,238,231,.09); }
 .loader__frame {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: min(52vw, 620px); height: calc(min(52vw, 620px) * 956 / 1730); overflow: hidden; background: var(--antracit-2);
 }
 .loader__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; clip-path: inset(100% 0 0 0); }
-.loader__shade { position: absolute; inset: 0; opacity: 0; background: linear-gradient(180deg, rgba(20,18,16,.38) 0%, rgba(20,18,16,0) 22%, rgba(20,18,16,0) 48%, rgba(20,18,16,.72) 100%); }
 .loader__place, .loader__mark, .loader__count { position: absolute; margin: 0; }
 .loader__place { left: var(--gut); top: clamp(1.25rem, 3vw, 2rem); font: 500 .74rem/1.2 var(--text); letter-spacing: .08em; color: rgba(242,238,231,.7); }
 .loader__mark { left: var(--gut); bottom: clamp(1.25rem, 3vw, 2rem); font: 600 clamp(1.6rem, 1rem + 2vw, 2.6rem)/1 var(--display); font-stretch: 62%; letter-spacing: .05em; text-transform: uppercase; display: flex; gap: .35em; }
