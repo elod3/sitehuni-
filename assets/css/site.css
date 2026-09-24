@@ -311,22 +311,33 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 .menu__tel span { font: 500 .72rem/1 var(--text); color: rgba(242,238,231,.6); }
 .menu-open .bar { color: var(--tencuiala); background: transparent; box-shadow: none; }
 
-/* ---------- loader: silueta ansamblului se desenează cât se încarcă randările ---------- */
+/* ---------- loader: randările proiectului apar pe rând, pe măsură ce se încarcă;
+   ultima, fațada, se extinde pe tot ecranul și devine coperta ---------- */
 .loader { display: none; }
 .is-loading .loader {
-  display: grid; position: fixed; inset: 0; z-index: 100; background: var(--antracit); color: var(--tencuiala);
-  grid-template: 1fr auto / 1fr 1fr; padding: clamp(1.25rem, 4vw, 3rem) var(--gut);
-  animation: arc-safety 0s 9s forwards; /* dacă JS nu pornește, loaderul dispare singur */
+  display: block; position: fixed; inset: 0; z-index: 100; background: var(--antracit); color: var(--tencuiala);
+  animation: arc-safety 0s 10s forwards; /* dacă JS nu pornește, loaderul dispare singur */
 }
-.loader__draw { grid-column: 1 / -1; align-self: center; justify-self: center; width: min(86vw, 760px); overflow: visible; }
-.ld, .ld-seams line { fill: none; stroke: var(--tencuiala); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
-.ld--ground { stroke-width: 1.6; }
-.ld--win { stroke: #d9b98f; }
-.ld-seams line { stroke-width: .8; opacity: .55; }
-.loader__sheet, .loader__status, .loader__place { margin: 0; font: 500 .74rem/1.3 var(--text); letter-spacing: .08em; color: rgba(242,238,231,.7); }
-.loader__status { grid-column: 1 / -1; grid-row: 1; align-self: end; justify-self: center; margin-bottom: 2rem; font-variant-numeric: tabular-nums; }
-.loader__place { justify-self: end; }
+.loader__frame {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(52vw, 620px); height: calc(min(52vw, 620px) * 956 / 1730); overflow: hidden; background: var(--antracit-2);
+}
+.loader__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; clip-path: inset(100% 0 0 0); }
+.loader__shade { position: absolute; inset: 0; opacity: 0; background: linear-gradient(180deg, rgba(20,18,16,.38) 0%, rgba(20,18,16,0) 22%, rgba(20,18,16,0) 48%, rgba(20,18,16,.72) 100%); }
+.loader__place, .loader__mark, .loader__count { position: absolute; margin: 0; }
+.loader__place { left: var(--gut); top: clamp(1.25rem, 3vw, 2rem); font: 500 .74rem/1.2 var(--text); letter-spacing: .08em; color: rgba(242,238,231,.7); }
+.loader__mark { left: var(--gut); bottom: clamp(1.25rem, 3vw, 2rem); font: 600 clamp(1.6rem, 1rem + 2vw, 2.6rem)/1 var(--display); font-stretch: 62%; letter-spacing: .05em; text-transform: uppercase; display: flex; gap: .35em; }
+.loader__mark span { font-weight: 350; }
+.loader__count { right: var(--gut); bottom: clamp(1.25rem, 3vw, 2rem); display: grid; justify-items: end; gap: .35rem; text-align: right; }
+.loader__count span { font: 500 .78rem/1.2 var(--text); color: rgba(242,238,231,.72); }
+.loader__count b { font: 560 clamp(1.6rem, 1rem + 2vw, 2.6rem)/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; }
 @keyframes arc-safety { to { visibility: hidden; } }
+@media (max-width: 560px) {
+  .loader__frame { width: 78vw; height: calc(78vw * 956 / 1730); }
+  .loader__mark { bottom: 4.2rem; }
+  .loader__count { left: var(--gut); right: auto; justify-items: start; text-align: left; }
+  .loader__count { bottom: clamp(1.25rem, 3vw, 2rem); grid-auto-flow: column; align-items: baseline; gap: 1rem; }
+}
 
 /* ---------- cortina dintre pagini: aceleași panouri verticale ca pe fațadă ---------- */
 .curtain { position: fixed; inset: 0; z-index: 90; pointer-events: none; visibility: hidden; }

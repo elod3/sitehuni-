@@ -10,7 +10,7 @@ Deschide `index.html` sau servește folderul: `python3 -m http.server`.
 - **Paleta vine din clădire:** alb cald ca tencuiala parterului, antracit ca tabla fălțuită a etajului, stejar și terrazzo din interioare. Verdele copertei broșurii apare doar ca marcaj activ (camera selectată, butonul de apel).
 - **Tipografie:** Archivo condensat pentru titluri, care repetă ritmul vertical al tablei, și Montserrat pentru text. Montserrat e fontul broșurii și e păstrat intenționat.
 - **Animații, fiecare cu motivul ei:**
-  - loaderul desenează silueta ansamblului pe măsură ce se încarcă randările (progres real) și apare o singură dată pe sesiune;
+  - loaderul arată randările proiectului pe rând, fiecare abia după ce s-a încărcat; ultima, fațada, se extinde pe tot ecranul și devine coperta (o singură dată pe sesiune);
   - între pagini se închid și se deschid panourile verticale ale fațadei, cu numele paginii destinație;
   - axonometria rămâne fixată, iar scroll-ul face zoom pe zonele din broșură;
   - planul unui apartament se descoperă pornind de la ușa de intrare;

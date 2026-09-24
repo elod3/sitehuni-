@@ -156,51 +156,43 @@
     leave(url.href, a.dataset.label || a.textContent.trim());
   });
 
-  /* ================= loader: silueta se desenează pe măsură ce se încarcă randările ================= */
+  /* ================= loader =================
+     Randările proiectului apar pe rând, fiecare abia după ce s-a încărcat. Ultima e fațada:
+     rama ei se extinde pe tot ecranul, pe același decupaj ca pe copertă, și devine coperta. */
   function runLoader() {
     const loader = $('#loader');
     if (!loader || !html.classList.contains('is-loading')) { html.classList.remove('is-loading'); return Promise.resolve(false); }
     if (!motion) { html.classList.remove('is-loading'); return Promise.resolve(false); }
 
-    // fălțuirile tablei: linii verticale pe etaj, de la acoperiș la cornișa parterului
-    const g = $('.ld-seams', loader), ns = 'http://www.w3.org/2000/svg';
-    const roof = x => x < 188 ? 128 - (x - 52) * (54 / 136) : x < 298 ? 112 : x < 468 ? 100 : 112;
-    for (let x = 62; x < 588; x += 11) {
-      const l = document.createElementNS(ns, 'line');
-      l.setAttribute('x1', x); l.setAttribute('x2', x); l.setAttribute('y1', roof(x) + 1); l.setAttribute('y2', 157);
-      g.appendChild(l);
-    }
-    const prep = els => els.forEach(el => { const L = el.getTotalLength(); el.style.strokeDasharray = L; el.style.strokeDashoffset = L; });
-    const lines = $$('.ld, .ld-seams line', loader);
-    prep(lines);
+    const frame = $('#loader-frame', loader), shots = $$('img', frame);
+    const cap = $('#loader-cap', loader), idx = $('#loader-idx', loader);
+    const total = String(shots.length).padStart(2, '0');
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    const loaded = img => img.complete && img.naturalWidth ? Promise.resolve()
+      : new Promise(r => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); });
+    const heroImg = $('.hero__img img');
+    const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
 
-    const draw = gsap.timeline({ paused: true, defaults: { ease: 'none' } })
-      .to('.ld--ground', { strokeDashoffset: 0, duration: .12 })
-      .to('.ld--body', { strokeDashoffset: 0, duration: .3 })
-      .to('.ld--floor', { strokeDashoffset: 0, duration: .08 })
-      .to('.ld-seams line', { strokeDashoffset: 0, duration: .06, stagger: .005 })
-      .to('.ld--win', { strokeDashoffset: 0, duration: .14, stagger: .04 });
+    const sequence = shots.reduce((chain, img, i) => chain.then(() =>
+      Promise.all([loaded(img), wait(i ? 90 : 150), i === shots.length - 1 ? Promise.all([fonts, heroImg ? loaded(heroImg) : 0]) : 0]).then(() => new Promise(done => {
+        const last = i === shots.length - 1;
+        cap.textContent = img.dataset.cap;
+        idx.textContent = `${String(i + 1).padStart(2, '0')} / ${total}`;
+        // următoarea poză pornește înainte ca asta să termine, ca secvența să curgă
+        gsap.timeline()
+          .to(img, { clipPath: 'inset(0% 0 0 0)', duration: .5, ease: 'power3.inOut' })
+          .fromTo(img, { scale: 1.18 }, { scale: 1, duration: .8, ease: 'power2.out' }, 0)
+          .call(done, null, last ? .45 : .28);
+      }))), Promise.resolve());
+    const safety = wait(8000);
 
-    // progres real: imaginile care nu sunt lazy + fonturile
-    const imgs = $$('img').filter(i => i.loading !== 'lazy');
-    let done = 0; const total = imgs.length + 1;
-    const pct = $('#loader-pct'), shown = { p: 0 };
-    const bump = () => {
-      done++;
-      gsap.to(shown, { p: done / total, duration: .6, ease: 'power2.out', overwrite: true,
-        onUpdate: () => { draw.progress(shown.p); pct.textContent = Math.round(shown.p * 100); } });
-    };
-    imgs.forEach(i => (i.complete ? bump() : (i.addEventListener('load', bump, { once: true }), i.addEventListener('error', bump, { once: true }))));
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(bump);
-
-    const minTime = new Promise(r => setTimeout(r, 1500));
-    const allIn = new Promise(r => { const t = setInterval(() => { if (shown.p > .995) { clearInterval(t); r(); } }, 60); setTimeout(() => { clearInterval(t); r(); }, 7000); });
-
-    return Promise.all([minTime, allIn]).then(() => new Promise(res => {
-      draw.progress(1); pct.textContent = '100';
+    return Promise.race([sequence, safety]).then(() => new Promise(res => {
+      shots.forEach(img => gsap.set(img, { clipPath: 'inset(0% 0 0 0)' }));
+      const seams = $('.seams'); if (seams) seams.remove();
       gsap.timeline({ onComplete: () => { loader.remove(); html.classList.remove('is-loading'); res(true); } })
-        .to('.ld--win', { fill: 'rgba(217,185,143,.35)', duration: .35, stagger: .03 })  // se aprind ferestrele, ca în randări
-        .to(loader.children, { opacity: 0, duration: .45, ease: 'power2.in' }, '+=.25');
+        .to([$('.loader__place', loader), $('.loader__mark', loader), $('.loader__count', loader)], { opacity: 0, duration: .35, ease: 'power2.in' })
+        .to(frame, { width: innerWidth, height: innerHeight, duration: 1.15, ease: 'power3.inOut' }, .1)
+        .to($('.loader__shade', loader), { opacity: 1, duration: .8, ease: 'power2.inOut' }, .45);
     }));
   }
 
@@ -279,7 +271,7 @@
   }
 
   /* ================= animații pe pagini ================= */
-  function heroIn(withSeams) {
+  function heroIn(withSeams, fromLoader) {
     const seams = $('.seams');
     const reveal = () => { html.classList.remove('js-motion'); seams && seams.remove(); };
     const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' }, onComplete: reveal });
@@ -290,8 +282,8 @@
       seams.style.background = 'transparent';
       tl.to($$('i', seams), { scaleY: 0, duration: 1.1, stagger: i => Math.abs(i - (n - 1) / 2) * .07 }, 0);
     } else if (seams) seams.remove();
-    tl.from('.hero__img img', { scale: 1.08, duration: 1.8, ease: 'power2.out' }, 0)
-      .fromTo('.hero__title', { yPercent: 18, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .9, ease: 'power3.out' }, withSeams ? .55 : .25)
+    if (!fromLoader) tl.from('.hero__img img', { scale: 1.08, duration: 1.8, ease: 'power2.out' }, 0);
+    tl.fromTo('.hero__title', { yPercent: 18, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .9, ease: 'power3.out' }, withSeams ? .55 : .25)
       .to('.hero .sheet, .hero__lede', { opacity: 1, duration: .7 }, withSeams ? .9 : .5)
       .fromTo('.hero__cartus > div', { y: 12 }, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power2.out' }, withSeams ? 1 : .6);
     gsap.to('.hero__img img', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
@@ -391,15 +383,15 @@
 
   const arriving = html.classList.contains('is-arriving');
   const intro = {
-    home: () => { heroIn(!arriving); tocIn(); },
+    home: fromLoader => { heroIn(!arriving && !fromLoader, fromLoader); tocIn(); },
     ansamblu: () => { pheadIn(); cotaIn(); axoIn(); },
     apt: () => { pheadIn(); },
     contact: () => { contactIn(); },
   }[page] || (() => {});
 
-  (arriving ? Promise.resolve(false) : runLoader()).then(() => {
+  (arriving ? Promise.resolve(false) : runLoader()).then(fromLoader => {
     store.set('arc-seen', '1');
-    intro();
+    intro(fromLoader);
     if (arriving) arrive();
     ScrollTrigger.refresh();
   });
