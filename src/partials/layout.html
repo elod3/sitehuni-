@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{desc}}">
+<meta name="theme-color" content="#1f1d1a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%231f1d1a%22/%3E%3Cpath d=%22M9 26 16 6l7 20M11.6 19h8.8%22 fill=%22none%22 stroke=%22%23f2eee7%22 stroke-width=%222.4%22/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{preload}}" as="image" type="image/webp">
+<script>
+/* Starea de pornire, înainte de primul paint: animațiile doar fără „reduce motion”;
+   cortina rămâne închisă când venim dintr-o tranziție; loaderul doar la prima vizită. */
+(function () {
+  var d = document.documentElement;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  d.classList.add('js-motion');
+  try {
+    if (sessionStorage.getItem('arc-nav')) d.classList.add('is-arriving');
+    else if (!sessionStorage.getItem('arc-seen')) d.classList.add('is-loading');
+  } catch (e) {}
+})();
+</script>
+<link rel="stylesheet" href="assets/vendor/lenis.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body {{body_attrs}}>
+{{loader}}
+<div class="curtain" aria-hidden="true"><div class="curtain__strips"></div><p class="curtain__label"></p></div>
+
+<header class="bar" id="bar">
+  <a class="bar__mark" href="index.html" data-label="Arcadian Residence" aria-label="Arcadian Residence, prima pagină">Arcadian<span>Residence</span></a>
+  <nav class="bar__nav" aria-label="Pagini">
+        {{nav}}
+  </nav>
+  <a class="bar__tel" href="tel:+40769296668">0769 296 668</a>
+  <button class="bar__menu" type="button" aria-expanded="false" aria-controls="menu">Meniu</button>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <ol class="menu__list">
+        {{menu}}
+  </ol>
+  <a class="menu__tel" href="tel:+40769296668"><span>Vânzări</span>0769 296 668</a>
+</div>
+
+<main id="top">
+{{main}}
+</main>
+{{cta}}
+<footer class="foot">
+  <div class="foot__in">
+    <a class="foot__mark" href="index.html" data-label="Arcadian Residence">Arcadian<span>Residence</span></a>
+    <p class="foot__copy">© 2026 Arcadian Residence. Toate drepturile rezervate.</p>
+    <p class="foot__credit">Imaginile de prezentare sunt proprietatea Studio Holm &amp; Inhabit Studio și au caracter informativ.</p>
+  </div>
+</footer>
+
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

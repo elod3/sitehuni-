@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ansamblul — Arcadian Residence</title>
+<meta name="description" content="Locație, masterplan și fișa tehnică: nZEB, tripan, încălzire în pardoseală, structură din beton și cărămidă, învelitoare din tablă fălțuită.">
+<meta name="theme-color" content="#1f1d1a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%231f1d1a%22/%3E%3Cpath d=%22M9 26 16 6l7 20M11.6 19h8.8%22 fill=%22none%22 stroke=%22%23f2eee7%22 stroke-width=%222.4%22/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/img/ext-alee-1800.webp" as="image" type="image/webp">
+<script>
+/* Starea de pornire, înainte de primul paint: animațiile doar fără „reduce motion”;
+   cortina rămâne închisă când venim dintr-o tranziție; loaderul doar la prima vizită. */
+(function () {
+  var d = document.documentElement;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  d.classList.add('js-motion');
+  try {
+    if (sessionStorage.getItem('arc-nav')) d.classList.add('is-arriving');
+    else if (!sessionStorage.getItem('arc-seen')) d.classList.add('is-loading');
+  } catch (e) {}
+})();
+</script>
+<link rel="stylesheet" href="assets/vendor/lenis.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="ansamblu" data-bar="light">
+
+<div class="curtain" aria-hidden="true"><div class="curtain__strips"></div><p class="curtain__label"></p></div>
+
+<header class="bar" id="bar">
+  <a class="bar__mark" href="index.html" data-label="Arcadian Residence" aria-label="Arcadian Residence, prima pagină">Arcadian<span>Residence</span></a>
+  <nav class="bar__nav" aria-label="Pagini">
+        <a href="ansamblu.html" aria-current="page" data-label="Ansamblul">Ansamblul</a>
+        <a href="tip-1.html" data-label="Tip 1 · 71,3 m²">Tip 1</a>
+        <a href="tip-2.html" data-label="Tip 2 · 122,26 m²">Tip 2</a>
+        <a href="contact.html" data-label="Rezervare">Rezervare</a>
+  </nav>
+  <a class="bar__tel" href="tel:+40769296668">0769 296 668</a>
+  <button class="bar__menu" type="button" aria-expanded="false" aria-controls="menu">Meniu</button>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <ol class="menu__list">
+        <li><a href="ansamblu.html" aria-current="page" data-label="Ansamblul"><span>01</span>Ansamblul</a></li>
+        <li><a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span>02</span>Tip 1 · 71,3 m²</a></li>
+        <li><a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span>03</span>Tip 2 · 122,26 m²</a></li>
+        <li><a href="contact.html" data-label="Rezervare"><span>04</span>Rezervare</a></li>
+  </ol>
+  <a class="menu__tel" href="tel:+40769296668"><span>Vânzări</span>0769 296 668</a>
+</div>
+
+<main id="top">
+  <header class="phead">
+    <div class="phead__text">
+      <p class="sheet">Planșa 01 — Ansamblul</p>
+      <h1 class="phead__title">Ansamblul</h1>
+    </div>
+    <p class="phead__lede">Locuințe înșiruite, parter și un etaj, cu grădini la parter, parcare dedicată și 40% din teren lăsat verde.</p>
+    <figure class="phead__img">
+      <img src="assets/img/ext-alee-1800.webp" srcset="assets/img/ext-alee-900.webp 900w, assets/img/ext-alee-1800.webp 1800w" sizes="100vw" width="1718" height="984" alt="Aleea pietonală dintre locuințe, cu bănci din lemn, stâlpi de iluminat joși și arbori aliniați">
+    </figure>
+  </header>
+
+  <!-- 01.1 · Locație -->
+  <section class="sec loc" id="locatie">
+    <div class="loc__grid">
+      <div class="loc__copy">
+        <header class="sec__head">
+          <p class="sheet">01.1 — Locație</p>
+          <h2>Naveta zilnică devine o formalitate, nu un compromis.</h2>
+        </header>
+        <p>Arcadian Residence se află în Ceuașu de Câmpie, într-un cadru liniștit, ferit de forfota urbană, dar suficient de aproape de Târgu Mureș cât să nu renunți la locul de muncă, la școli sau la servicii.</p>
+        <p>O zonă rezidențială nouă, cu un singur nivel peste parter, cu grădini la parter și parcare dedicată pentru fiecare locuință.</p>
+      </div>
+
+      <figure class="cota" aria-label="Distanța Ceuașu de Câmpie – Târgu Mureș: 15 minute cu mașina">
+        <svg viewBox="0 0 600 420" role="img" aria-hidden="true">
+          <path class="cota__river" d="M470 0 C 450 80, 500 140, 440 200 S 380 330, 420 420" />
+          <path class="cota__road" d="M120 70 C 150 150, 170 200, 250 250 S 390 320, 430 350" />
+          <g class="cota__dim">
+            <line class="cota__ext" x1="108" y1="82" x2="68" y2="122" />
+            <line class="cota__ext" x1="418" y1="362" x2="378" y2="402" />
+            <line class="cota__line" x1="78" y1="112" x2="388" y2="392" />
+            <line class="cota__tick" x1="70" y1="120" x2="86" y2="104" />
+            <line class="cota__tick" x1="380" y1="400" x2="396" y2="384" />
+          </g>
+          <circle class="cota__pin cota__pin--here" cx="120" cy="70" r="9" />
+          <circle class="cota__pin" cx="430" cy="350" r="6" />
+        </svg>
+        <span class="cota__label cota__label--a">Ceuașu de Câmpie<em>Arcadian Residence</em></span>
+        <span class="cota__label cota__label--b">Târgu Mureș</span>
+        <span class="cota__value">15 min</span>
+        <figcaption>Schemă, fără scară. Timp de parcurs cu mașina, conform broșurii de prezentare.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 01.2 · Masterplan: axonometria fixată, cu zoom pe zonele din broșură -->
+  <section class="axopin" id="masterplan" aria-labelledby="axo-title">
+    <div class="axopin__stage">
+      <div class="axopin__head">
+        <p class="sheet">01.2 — Masterplan</p>
+        <h2 id="axo-title" class="axopin__title">Axonometria ansamblului</h2>
+      </div>
+      <div class="axopin__frame">
+        <img class="axopin__img" src="assets/img/ansamblu-axo-1800.webp" srcset="assets/img/ansamblu-axo-900.webp 900w, assets/img/ansamblu-axo-1800.webp 1800w" sizes="(max-width: 900px) 230vw, 100vw" width="2033" height="896" loading="lazy" alt="Axonometrie a ansamblului: șir de locuințe P+1E cu acoperișuri în pantă, parcare în față și arbori pe latura opusă">
+      </div>
+      <ol class="axopin__notes">
+        <li class="axopin__note" data-x="46" data-y="40" data-s="1"><b>P+1E</b> Locuințe înșiruite, regim redus de înălțime</li>
+        <li class="axopin__note" data-x="78" data-y="58" data-s="2.1"><b>Parcare</b> Locuri de parcare dedicate, pe latura de acces</li>
+        <li class="axopin__note" data-x="36" data-y="70" data-s="2.3"><b>Parter</b> Grădini private și alei pietonale cu mobilier urban</li>
+        <li class="axopin__note" data-x="16" data-y="30" data-s="2.2"><b>Verde</b> Vegetație matură integrată în masterplan</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 01.3 · Fișă tehnică -->
+  <section class="sec spec" id="fisa">
+    <header class="sec__head sec__head--split">
+      <p class="sheet">01.3 — Fișă tehnică</p>
+      <h2>Un confort care se simte, nu doar se promite.</h2>
+      <p class="sec__intro">Fiecare decizie tehnică pornește de aici: case eficiente energetic, bine izolate și ușor de întreținut, cu finisaje și instalații gândite pentru viața de zi cu zi.</p>
+    </header>
+
+    <div class="spec__grid">
+      <figure class="spec__img">
+        <img src="assets/img/ext-alee-2-1800.webp" width="855" height="497" loading="lazy" alt="Perspectivă pe aleea dintre locuințe, cu balcoane la etaj și bănci din lemn">
+        <figcaption>Aleea pietonală, latura de grădină</figcaption>
+      </figure>
+
+      <table class="spec__table">
+        <caption class="visually-hidden">Specificații tehnice Arcadian Residence</caption>
+        <tbody>
+          <tr><th scope="row">Eficiență energetică</th><td><ul><li>Standard nZEB de performanță energetică</li><li>Tâmplărie cu trei straturi de geam (tripan)</li><li>Izolație termică superioară</li></ul></td></tr>
+          <tr><th scope="row">Confort &amp; utilități</th><td><ul><li>Încălzire în pardoseală</li><li>Pre-echipare pentru panouri fotovoltaice</li><li>Contorizare individuală pe fiecare unitate</li></ul></td></tr>
+          <tr><th scope="row">Sistem constructiv</th><td><ul><li>Structură din beton și cărămidă</li><li>Învelitoare din tablă fălțuită</li></ul></td></tr>
+          <tr><th scope="row">Fațadă &amp; exterior</th><td><ul><li>Grădini private pentru locuințele de la parter</li><li>Locuri de parcare dedicate</li><li>Iluminat ambiental LED</li><li>Storuri integrate în fațadă la camerele orientate spre sud: protecție solară fără elemente montate vizibil</li></ul></td></tr>
+          <tr><th scope="row">Spații comune</th><td><ul><li>Alei pietonale și spații de relaxare amenajate</li><li>Vegetație matură integrată în masterplan</li><li>Mobilier urban în zonele comune</li></ul></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 01.4 · Exterior -->
+  <section class="sec ext" id="exterior">
+    <div class="ext__grid">
+      <figure class="ext__a">
+        <img src="assets/img/ext-calcan-1800.webp" srcset="assets/img/ext-calcan-900.webp 900w, assets/img/ext-calcan-1800.webp 1800w" sizes="(min-width: 900px) 58vw, 100vw" width="1759" height="984" loading="lazy" alt="Capătul ansamblului la apus, cu acoperișul în pantă îmbrăcat în tablă antracit și ferestrele luminate">
+        <figcaption>Capătul ansamblului, la apus</figcaption>
+      </figure>
+      <div class="ext__text">
+        <p class="sheet">01.4 — Exterior</p>
+        <h2>Parter alb, etaj în tablă fălțuită, grădina în față.</h2>
+        <p class="ext__note">Camerele orientate spre sud au storuri integrate în arhitectura fațadei. Protecția solară nu se vede din exterior, așa că liniile clădirii rămân curate.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="next" aria-label="Planșa următoare">
+    <a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span class="sheet">Planșa următoare — 02</span><span class="next__title">Apartament Tip 1</span><span class="next__meta">71,3 m²</span></a>
+  </nav>
+
+</main>
+<aside class="cta" aria-label="Rezervare">
+  <div class="cta__in">
+    <p class="sheet">Tur virtual 3D cu echipa de vânzări</p>
+    <p class="cta__title">Vezi apartamentele disponibile și planurile personalizabile.</p>
+    <div class="cta__actions">
+      <a class="call call--small" href="tel:+40769296668"><span class="call__label">Sună acum</span><span class="call__num">0769 296 668</span></a>
+      <a class="cta__link" href="contact.html" data-label="Rezervare">Detalii rezervare</a>
+    </div>
+  </div>
+</aside>
+
+<footer class="foot">
+  <div class="foot__in">
+    <a class="foot__mark" href="index.html" data-label="Arcadian Residence">Arcadian<span>Residence</span></a>
+    <p class="foot__copy">© 2026 Arcadian Residence. Toate drepturile rezervate.</p>
+    <p class="foot__credit">Imaginile de prezentare sunt proprietatea Studio Holm &amp; Inhabit Studio și au caracter informativ.</p>
+  </div>
+</footer>
+
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

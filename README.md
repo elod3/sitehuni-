@@ -9,6 +9,12 @@ Deschide `index.html` sau servește folderul: `python3 -m http.server`.
 - **Ton:** sobru, de proiect de arhitectură: suprafețe la zecimală, materiale, fișă tehnică. Tot conținutul vine din broșura tipărită.
 - **Paleta vine din clădire:** alb cald ca tencuiala parterului, antracit ca tabla fălțuită a etajului, stejar și terrazzo din interioare. Verdele copertei broșurii apare doar ca marcaj activ (camera selectată, butonul de apel).
 - **Tipografie:** Archivo condensat pentru titluri, care repetă ritmul vertical al tablei, și Montserrat pentru text. Montserrat e fontul broșurii și e păstrat intenționat.
+- **Animații, fiecare cu motivul ei:**
+  - loaderul desenează silueta ansamblului pe măsură ce se încarcă randările (progres real) și apare o singură dată pe sesiune;
+  - între pagini se închid și se deschid panourile verticale ale fațadei, cu numele paginii destinație;
+  - axonometria rămâne fixată, iar scroll-ul face zoom pe zonele din broșură;
+  - planul unui apartament se descoperă pornind de la ușa de intrare;
+  - în turul prin apartament, fiecare fotografie aprinde pe plan încăperea în care a fost făcută.
 - **Elemente memorabile:**
   - planul interactiv: tabelul de suprafețe e legat de plan (hover sau tap pe o cameră o aprinde în ambele);
   - cei „15 min” până la Târgu Mureș, desenați ca linie de cotă;
@@ -16,7 +22,10 @@ Deschide `index.html` sau servește folderul: `python3 -m http.server`.
 
 ## Structură
 
-- `index.html`: o singură pagină, cu secțiuni numerotate ca planșe (A.01–A.05).
+Paginile se generează din `src/` cu `python3 build.py`. Nu edita direct fișierele `.html` din rădăcină.
+
+- `src/partials/`: `layout.html` (head, bara de sus, meniu, cortină, footer), `loader.html`, `cta.html`.
+- `src/pages/`: conținutul fiecărei pagini (`index`, `ansamblu`, `tip-1`, `tip-2`, `contact`).
 - `assets/css/site.css`, `assets/js/site.js`: stilul și interacțiunile. Datele apartamentelor sunt în `APT`.
 - `assets/vendor/`: GSAP 3.15 + ScrollTrigger, Lenis, vendorizate local.
 - `assets/fonts/`: Archivo și Montserrat, variabile, subseturi latin și latin-ext.

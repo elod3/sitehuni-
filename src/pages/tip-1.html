@@ -1,0 +1,65 @@
+  <header class="phead phead--apt">
+    <div class="phead__text">
+      <p class="sheet">Planșa 02 — Apartament</p>
+      <h1 class="phead__title">Tip 1<span class="phead__m2">71,3<small>m²</small></span></h1>
+    </div>
+    <p class="phead__lede">Living, dormitor și birou, cu acces direct din exterior. Zona de zi se leagă de cea de noapte, fiecare clar delimitată. Gândit pentru un cuplu tânăr.</p>
+    <figure class="phead__img">
+      <img src="assets/img/t1-living-1800.webp" srcset="assets/img/t1-living-900.webp 900w, assets/img/t1-living-1800.webp 1800w" sizes="100vw" width="1764" height="1012" alt="Living cu deschidere spre grădină: canapea joasă, bibliotecă din stejar, ușă-fereastră spre exterior">
+    </figure>
+  </header>
+
+  <section class="sec apt" id="plan-sec">
+    <header class="sec__head apt__head">
+      <div>
+        <p class="sheet">02.1 — Plan și suprafețe</p>
+        <h2>Suprafețe la zecimală, încăpere cu încăpere.</h2>
+      </div>
+      <a class="apt__switch" href="tip-2.html" data-label="Tip 2">Compară cu Tip 2</a>
+    </header>
+
+    <div class="apt__panel">
+      <figure class="plan">
+        <div class="plan__stage" id="plan-stage">
+          <img id="plan-img" src="assets/img/plan-t1.webp" alt="Plan apartament tip 1, 71,3 m²">
+          <svg class="plan__zones" id="plan-zones" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="plan__marks" id="plan-marks"></div>
+          <span class="plan__north" aria-hidden="true">intrare ▲</span>
+        </div>
+        <figcaption>Plan orientativ, preluat din broșura de prezentare. Zonele marcate sunt aproximative.</figcaption>
+      </figure>
+
+      <div class="apt__side">
+        <p class="apt__desc" id="apt-desc"></p>
+        <table class="rooms">
+          <caption class="visually-hidden">Suprafețe utile pe încăperi</caption>
+          <thead><tr><th scope="col">Nr.</th><th scope="col">Încăpere</th><th scope="col" class="num">m²</th></tr></thead>
+          <tbody id="rooms-body"></tbody>
+          <tfoot><tr><th scope="row" colspan="2">Total utilă</th><td class="num" id="rooms-total"></td></tr></tfoot>
+        </table>
+        <p class="apt__extra" id="apt-extra"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02.2 · Tur: planul rămâne pe loc, fiecare fotografie aprinde încăperea în care a fost făcută -->
+  <section class="sec tour" aria-labelledby="tour-title">
+    <header class="sec__head">
+      <p class="sheet">02.2 — Tur prin apartament</p>
+      <h2 id="tour-title">Cobori prin apartament, planul îți arată unde ești.</h2>
+    </header>
+    <div class="tour__grid">
+      <div class="tour__map" aria-hidden="true">
+        <div class="tour__stage" id="tour-stage">
+          <img src="assets/img/plan-t1.webp" alt="">
+          <svg class="plan__zones" id="tour-zones" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+        </div>
+        <p class="tour__where" id="tour-where"></p>
+      </div>
+      <div class="tour__photos" id="tour-photos"></div>
+    </div>
+  </section>
+
+  <nav class="next" aria-label="Planșa următoare">
+    <a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span class="sheet">Planșa următoare — 03</span><span class="next__title">Apartament Tip 2</span><span class="next__meta">122,26 m²</span></a>
+  </nav>

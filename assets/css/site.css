@@ -83,12 +83,13 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
   color: var(--tencuiala);
   transition: background-color .5s var(--ease), color .5s var(--ease), padding .5s var(--ease);
 }
+[data-bar="light"] .bar { color: var(--antracit); }
 .bar.is-solid { background: rgba(242, 238, 231, .94); color: var(--antracit); padding-block: .7rem; box-shadow: 0 1px 0 var(--linie); }
 .bar__mark { font: 600 1.05rem/1 var(--display); font-stretch: 62%; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; display: flex; gap: .4em; }
 .bar__mark span { font-weight: 350; }
 .bar__nav { display: flex; gap: 1.6rem; margin-left: auto; font-size: .82rem; font-weight: 500; }
 .bar__nav a { text-decoration: none; padding-block: .3rem; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s var(--ease); }
-.bar__nav a:hover, .bar__nav a:focus-visible { background-size: 100% 1px; }
+.bar__nav a:hover, .bar__nav a:focus-visible, .bar__nav a[aria-current="page"] { background-size: 100% 1px; }
 .bar__tel {
   font: 600 .82rem/1 var(--text); letter-spacing: .02em; text-decoration: none;
   padding: .65rem .9rem; border: 1px solid currentColor;
@@ -177,20 +178,9 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 
 /* A.03 apartamente */
 .apt__head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; }
-.apt__tabs { display: flex; border: 1px solid var(--antracit); }
-.apt__tabs button {
-  appearance: none; border: 0; background: transparent; color: var(--antracit); cursor: pointer;
-  padding: .8rem 1.3rem; text-align: left; font: inherit; display: grid; gap: .1rem; min-width: 9rem;
-  transition: background-color .35s var(--ease), color .35s var(--ease);
-}
-.apt__tabs button + button { border-left: 1px solid var(--antracit); }
-.apt__tabs button span { font-size: .72rem; letter-spacing: .06em; }
-.apt__tabs button b { font: 560 1.7rem/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; }
-.apt__tabs button:hover { background: var(--terrazzo); }
-.apt__tabs button[aria-selected="true"] { background: var(--antracit); color: var(--tencuiala); }
 
 .apt__panel { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-.plan__stage { position: relative; max-width: calc(80vh * var(--ar, 1)); margin-inline: auto; }
+.plan__stage { position: relative; background: var(--tencuiala); max-width: calc(80vh * var(--ar, 1)); margin-inline: auto; }
 .plan__stage img { width: 100%; mix-blend-mode: multiply; }
 .plan__zones { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .plan__zones rect { fill: var(--verde); opacity: 0; transition: opacity .3s var(--ease); }
@@ -295,14 +285,185 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
   .spec__table th { display: block; width: auto; padding-bottom: .4rem; }
   .spec__table td { display: block; padding-top: 0; }
   .spec__table tr { display: block; }
-  .apt__tabs { width: 100%; }
-  .apt__tabs button { flex: 1; min-width: 0; }
   .mark { width: 1.5rem; height: 1.5rem; font-size: .66rem; }
   .cota__label { font-size: .72rem; }
   .cota__label em { font-size: .66rem; }
 }
 
+
+/* ---------- meniu (ecrane înguste) ---------- */
+.bar__menu {
+  display: none; appearance: none; background: none; border: 1px solid currentColor; color: inherit;
+  font: 600 .78rem/1 var(--text); letter-spacing: .04em; padding: .65rem .9rem; cursor: pointer;
+}
+.menu {
+  position: fixed; inset: 0; z-index: 19; background: var(--antracit); color: var(--tencuiala);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 2.5rem;
+  padding: 6rem var(--gut) 2.5rem;
+}
+.menu[hidden] { display: none; }
+.menu__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(242,238,231,.25); }
+.menu__list li { border-bottom: 1px solid rgba(242,238,231,.25); overflow: hidden; }
+.menu__list a { display: flex; align-items: baseline; gap: 1rem; padding: .9rem 0; text-decoration: none; font: 560 clamp(2.2rem, 9vw, 3.6rem)/1 var(--display); font-stretch: 62%; }
+.menu__list a span { font: 500 .75rem/1 var(--text); color: rgba(242,238,231,.6); width: 1.6rem; }
+.menu__list a[aria-current="page"] { color: #8fc2a6; }
+.menu__tel { text-decoration: none; font: 560 2rem/1 var(--display); font-stretch: 62%; display: grid; gap: .3rem; }
+.menu__tel span { font: 500 .72rem/1 var(--text); color: rgba(242,238,231,.6); }
+.menu-open .bar { color: var(--tencuiala); background: transparent; box-shadow: none; }
+
+/* ---------- loader: silueta ansamblului se desenează cât se încarcă randările ---------- */
+.loader { display: none; }
+.is-loading .loader {
+  display: grid; position: fixed; inset: 0; z-index: 100; background: var(--antracit); color: var(--tencuiala);
+  grid-template: 1fr auto / 1fr 1fr; padding: clamp(1.25rem, 4vw, 3rem) var(--gut);
+  animation: arc-safety 0s 9s forwards; /* dacă JS nu pornește, loaderul dispare singur */
+}
+.loader__draw { grid-column: 1 / -1; align-self: center; justify-self: center; width: min(86vw, 760px); overflow: visible; }
+.ld, .ld-seams line { fill: none; stroke: var(--tencuiala); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.ld--ground { stroke-width: 1.6; }
+.ld--win { stroke: #d9b98f; }
+.ld-seams line { stroke-width: .8; opacity: .55; }
+.loader__sheet, .loader__status, .loader__place { margin: 0; font: 500 .74rem/1.3 var(--text); letter-spacing: .08em; color: rgba(242,238,231,.7); }
+.loader__status { grid-column: 1 / -1; grid-row: 1; align-self: end; justify-self: center; margin-bottom: 2rem; font-variant-numeric: tabular-nums; }
+.loader__place { justify-self: end; }
+@keyframes arc-safety { to { visibility: hidden; } }
+
+/* ---------- cortina dintre pagini: aceleași panouri verticale ca pe fațadă ---------- */
+.curtain { position: fixed; inset: 0; z-index: 90; pointer-events: none; visibility: hidden; }
+.curtain__strips { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--n, 12), 1fr); }
+.curtain__strips i { background: var(--antracit); transform: scaleY(0); transform-origin: 50% 0; box-shadow: inset -1px 0 0 rgba(242,238,231,.07); }
+.curtain__label {
+  position: absolute; left: var(--gut); bottom: clamp(1.5rem, 5vw, 3.5rem); margin: 0; color: var(--tencuiala);
+  font: 560 clamp(2.6rem, 1rem + 7vw, 8rem)/.9 var(--display); font-stretch: 62%; opacity: 0;
+}
+.is-arriving .curtain { visibility: visible; background: var(--antracit); animation: arc-safety 0s 4s forwards; }
+.is-arriving .curtain__label { opacity: 1; }
+
+/* ---------- cuprins pe prima pagină ---------- */
+.toc { position: relative; }
+.toc__head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(2rem, 6vw, 6rem); align-items: end; margin-bottom: clamp(3rem, 6vw, 5rem); }
+.toc__head .sheet { grid-column: 1 / -1; }
+.toc__head .sec__intro { margin: 0; }
+.toc__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--antracit); }
+.toc__list li { border-bottom: 1px solid var(--linie-tare); }
+.toc__row {
+  display: grid; grid-template-columns: 3.5rem minmax(0, 1.2fr) minmax(0, 1fr) auto; align-items: baseline; gap: 1.5rem;
+  padding: clamp(1.2rem, 2.4vw, 2rem) 0; text-decoration: none; position: relative;
+}
+.toc__num { font-size: .78rem; color: var(--grafit); font-variant-numeric: tabular-nums; }
+.toc__title { font: 560 clamp(2rem, 1rem + 3.4vw, 4.4rem)/.95 var(--display); font-stretch: 62%; transition: transform .5s var(--ease), color .3s var(--ease); }
+.toc__fact { color: var(--grafit); font-size: .92rem; }
+.toc__stat { font: 560 1.5rem/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; }
+.toc__row:hover .toc__title, .toc__row:focus-visible .toc__title { transform: translateX(1.2rem); color: var(--verde); }
+.toc__thumb { display: none; }
+.toc__peek {
+  position: fixed; left: 0; top: 0; z-index: 5; width: clamp(220px, 22vw, 340px); aspect-ratio: 4 / 3; overflow: hidden;
+  pointer-events: none; opacity: 0; transform: translate(-50%, -50%);
+}
+.toc__peek img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- antet de pagină ---------- */
+.phead { padding: clamp(7rem, 12vw, 10rem) var(--gut) 0; max-width: calc(var(--max) + 2 * var(--gut)); margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+.phead__title { font-size: clamp(4.2rem, 1rem + 12vw, 12rem); font-weight: 600; text-transform: uppercase; line-height: .84; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 .25em; }
+.phead__m2 { font-size: .42em; font-weight: 450; letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; }
+.phead__m2 small { font-size: .55em; margin-left: .15em; }
+.phead__lede { margin: 0 0 .6rem; max-width: 40ch; font-size: 1.05em; }
+.phead__img { grid-column: 1 / -1; margin: clamp(2.5rem, 5vw, 4rem) calc(-1 * var(--gut)) 0; overflow: hidden; height: min(78vh, 56vw); }
+.phead__img img { width: 100%; height: 118%; object-fit: cover; }
+.phead--apt .phead__img img { object-position: 50% 60%; }
+.js-motion .phead__title, .js-motion .phead .sheet, .js-motion .phead__lede { opacity: 0; }
+
+/* ---------- axonometria fixată ---------- */
+.axopin { margin-top: clamp(5rem, 10vw, 9rem); }
+.axopin__stage { position: relative; height: 100vh; height: 100svh; overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; padding: 5.5rem var(--gut) 2rem; }
+.axopin__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.axopin__head .sheet { margin: 0; }
+.axopin__title { font-size: clamp(1.6rem, 1rem + 1.8vw, 2.6rem); }
+.axopin__frame { position: relative; overflow: hidden; background: var(--tencuiala); align-self: center; width: 100%; aspect-ratio: 2033 / 896; max-height: 100%; margin: 0 auto;
+  -webkit-mask-image: radial-gradient(ellipse 74% 80% at 52% 50%, #000 60%, transparent 100%);
+          mask-image: radial-gradient(ellipse 74% 80% at 52% 50%, #000 60%, transparent 100%); }
+.axopin__img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; transform-origin: 0 0; will-change: transform; }
+.axopin__notes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; border-top: 1px solid var(--linie-tare); padding-top: 1rem; }
+.axopin__note { font-size: .82rem; color: var(--grafit); transition: color .3s var(--ease); }
+.axopin__note b { display: block; font: 560 1.35rem/1 var(--display); font-stretch: 62%; color: var(--antracit); margin-bottom: .35rem; }
+.axopin__note.is-on { color: var(--antracit); }
+.axopin__note.is-on b { color: var(--verde); }
+
+/* ---------- apartament: comutare și tur ---------- */
+.apt__switch { font-size: .85rem; font-weight: 600; text-decoration: none; padding: .8rem 1.1rem; border: 1px solid var(--antracit); transition: background-color .3s var(--ease), color .3s var(--ease); }
+.apt__switch:hover { background: var(--antracit); color: var(--tencuiala); }
+.plan__stage img { transition: none; }
+
+.tour__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.tour__map { position: sticky; top: 7rem; }
+.tour__stage { position: relative; background: var(--tencuiala); max-width: calc(62vh * var(--ar, 1)); }
+.tour__stage img { width: 100%; mix-blend-mode: multiply; }
+.tour__stage .plan__zones rect { transition: opacity .45s var(--ease); }
+.tour__where { margin: 1.2rem 0 0; font: 560 2rem/1 var(--display); font-stretch: 62%; min-height: 1em; }
+.tour__where small { display: block; font: 500 .75rem/1.4 var(--text); color: var(--grafit); margin-top: .4rem; }
+.tour__photos { display: grid; gap: clamp(3rem, 8vw, 7rem); }
+.tour__photo { margin: 0; }
+.tour__photo .tour__mask { overflow: hidden; }
+.tour__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.tour__photo:nth-child(even) { width: 82%; justify-self: end; }
+.tour__photo figcaption { display: flex; justify-content: space-between; gap: 1rem; padding-top: .7rem; font-size: .8rem; color: var(--grafit); }
+.tour__photo figcaption b { color: var(--antracit); font-weight: 600; }
+
+/* ---------- planșa următoare ---------- */
+.next { max-width: calc(var(--max) + 2 * var(--gut)); margin: clamp(6rem, 12vw, 10rem) auto 0; padding: 0 var(--gut); }
+.next a { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: .4rem 2rem; text-decoration: none; border-top: 1px solid var(--antracit); padding: 1.4rem 0 clamp(3rem, 6vw, 5rem); }
+.next .sheet { grid-column: 1 / -1; margin: 0; }
+.next__title { font: 600 clamp(3rem, 1rem + 8vw, 9rem)/.86 var(--display); font-stretch: 62%; text-transform: uppercase; transition: color .3s var(--ease), letter-spacing .6s var(--ease); }
+.next__meta { font: 560 1.6rem/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; }
+.next a:hover .next__title { color: var(--verde); letter-spacing: .01em; }
+
+/* ---------- bandă de rezervare, la finalul fiecărei pagini ---------- */
+.cta { background: var(--antracit); color: var(--tencuiala); margin-top: clamp(4rem, 8vw, 6rem); }
+.next + .cta, main:has(.next:last-child) + .cta { margin-top: 0; }
+.cta__in { max-width: calc(var(--max) + 2 * var(--gut)); margin: 0 auto; padding: clamp(3.5rem, 7vw, 6rem) var(--gut); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+.cta .sheet { grid-column: 1 / -1; color: rgba(242,238,231,.7); }
+.cta__title { margin: 0; font: 560 clamp(2rem, 1rem + 3vw, 3.8rem)/.98 var(--display); font-stretch: 62%; max-width: 20ch; }
+.cta__actions { display: grid; gap: 1rem; justify-items: start; }
+.call--small { padding: .9rem 1.2rem 1rem; }
+.call--small .call__num { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); }
+.cta__link { font-size: .85rem; font-weight: 600; color: rgba(242,238,231,.85); text-underline-offset: .3em; }
+.cta__link:hover { color: var(--tencuiala); }
+
+/* ---------- contact ca pagină ---------- */
+.contact--page { margin-top: 0; }
+.contact--page .contact__img::before { height: 24%; background: linear-gradient(rgba(20,18,16,.5), rgba(20,18,16,0)); }
+.contact--page .contact__img img { max-height: none; height: 78vh; }
+.contact__title { font-size: clamp(3rem, 1.2rem + 7vw, 8rem); max-width: 11ch; }
+.credits a { text-decoration-color: rgba(242,238,231,.4); text-underline-offset: .25em; }
+
+@media (max-width: 900px) {
+  .bar__menu { display: inline-block; }
+  .bar__tel { margin-left: auto; }
+  .toc__head, .phead, .cta__in { grid-template-columns: 1fr; }
+  .toc__head .sec__intro, .phead__lede { margin-top: 1.4rem; }
+  .toc__row { grid-template-columns: 2.4rem 1fr auto; gap: .3rem 1rem; }
+  .toc__fact { grid-column: 2 / -1; grid-row: 2; }
+  .toc__thumb { display: block; grid-column: 2 / -1; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; margin-top: .8rem; }
+  .toc__peek { display: none; }
+  .tour__grid { grid-template-columns: 1fr; }
+  .tour__map { top: 4.2rem; z-index: 2; background: var(--tencuiala); padding: .6rem 0; display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; align-items: center; box-shadow: 0 1px 0 var(--linie); }
+  .tour__stage { max-width: none; }
+  .tour__where { margin: 0; font-size: 1.5rem; }
+  .tour__photo:nth-child(even) { width: 100%; }
+  .axopin__frame { aspect-ratio: 4 / 3; }
+  .axopin__notes { grid-template-columns: 1fr 1fr; gap: .8rem 1.2rem; }
+  .axopin__note b { font-size: 1.1rem; }
+  .cta__actions { margin-top: 2rem; }
+}
+@media (max-width: 560px) {
+  .bar__tel { display: none; }
+  .bar__menu { margin-left: auto; }
+  .toc__stat { font-size: 1.1rem; }
+  .axopin__note { font-size: .74rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; }
-  .seams { display: none; }
+  .seams, .curtain, .loader, .toc__peek { display: none !important; }
 }
