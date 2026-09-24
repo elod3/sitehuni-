@@ -1,0 +1,303 @@
+/* Arcadian Residence
+   Paleta vine din materialele clădirii: tencuiala albă a parterului, tabla fălțuită antracit
+   a etajului, stejarul și terrazzo-ul din interioare. Verdele e cel al broșurii tipărite și
+   apare doar ca marcaj activ. */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-latin-standard-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-latin-ext-standard-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-display: swap;
+  unicode-range: U+0100-02AF, U+0218-021B, U+0304, U+0308, U+0329, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Montserrat e fontul broșurii Arcadian: îl păstrăm pentru text, ca site-ul și print-ul să vorbească la fel. */
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-latin-ext-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-display: swap;
+  unicode-range: U+0100-02AF, U+0218-021B, U+0304, U+0308, U+0329, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  --tencuiala: #f2eee7;
+  --terrazzo: #e6dfd3;
+  --antracit: #1f1d1a;
+  --antracit-2: #2b2925;
+  --grafit: #5b564f;
+  --stejar: #9c7048;
+  --verde: #2f6a4e;          /* verdele copertei */
+  --linie: rgba(31, 29, 26, .16);
+  --linie-tare: rgba(31, 29, 26, .55);
+
+  --display: "Archivo", "Helvetica Neue", sans-serif;
+  --text: "Montserrat", "Helvetica Neue", sans-serif;
+
+  --gut: clamp(1.25rem, 4vw, 3.5rem);
+  --max: 1320px;
+  --ease: cubic-bezier(.22, .61, .21, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--tencuiala);
+  color: var(--antracit);
+  font: 400 clamp(.95rem, .9rem + .2vw, 1.05rem)/1.65 var(--text);
+  font-feature-settings: "lnum";
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+a { color: inherit; }
+h1, h2 { font-family: var(--display); font-stretch: 62%; font-weight: 560; line-height: .95; letter-spacing: -.01em; margin: 0; }
+h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wrap: balance; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
+
+/* Numărul de planșă, ca în cartușul unui proiect de arhitectură */
+.sheet {
+  margin: 0 0 1.1rem;
+  font: 500 .74rem/1.2 var(--text);
+  letter-spacing: .08em;
+  color: var(--grafit);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- bara de sus ---------- */
+.bar {
+  position: fixed; inset: 0 0 auto; z-index: 20;
+  display: flex; align-items: center; gap: 2rem;
+  padding: 1.1rem var(--gut);
+  color: var(--tencuiala);
+  transition: background-color .5s var(--ease), color .5s var(--ease), padding .5s var(--ease);
+}
+.bar.is-solid { background: rgba(242, 238, 231, .94); color: var(--antracit); padding-block: .7rem; box-shadow: 0 1px 0 var(--linie); }
+.bar__mark { font: 600 1.05rem/1 var(--display); font-stretch: 62%; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; display: flex; gap: .4em; }
+.bar__mark span { font-weight: 350; }
+.bar__nav { display: flex; gap: 1.6rem; margin-left: auto; font-size: .82rem; font-weight: 500; }
+.bar__nav a { text-decoration: none; padding-block: .3rem; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s var(--ease); }
+.bar__nav a:hover, .bar__nav a:focus-visible { background-size: 100% 1px; }
+.bar__tel {
+  font: 600 .82rem/1 var(--text); letter-spacing: .02em; text-decoration: none;
+  padding: .65rem .9rem; border: 1px solid currentColor;
+  font-variant-numeric: tabular-nums;
+  transition: background-color .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.bar__tel:hover { background: var(--verde); border-color: var(--verde); color: var(--tencuiala); }
+
+/* ---------- copertă ---------- */
+.hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; padding: 7rem var(--gut) clamp(1.5rem, 4vw, 3rem); color: var(--tencuiala); overflow: hidden; background: var(--antracit); }
+.hero__img { position: absolute; inset: 0; }
+.hero__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; transform-origin: 50% 70%; }
+.hero__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,16,.38) 0%, rgba(20,18,16,0) 22%, rgba(20,18,16,0) 48%, rgba(20,18,16,.72) 100%); }
+/* fâșiile verticale: panourile de tablă fălțuită care se deschid la încărcare */
+.seams { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--n, 12), 1fr); z-index: 1; pointer-events: none; }
+.seams i { background: var(--antracit); transform-origin: 50% 0; box-shadow: inset -1px 0 0 rgba(242,238,231,.07); }
+.hero__text, .hero__cartus { position: relative; z-index: 2; }
+.js-motion .seams { background: var(--antracit); }
+.js-motion .hero__title, .js-motion .hero .sheet, .js-motion .hero__lede, .js-motion .hero__cartus > div { opacity: 0; }
+.hero .sheet { color: rgba(242, 238, 231, .78); }
+.hero__title { font-size: clamp(4rem, 1rem + 12.5vw, 13.5rem); font-weight: 600; text-transform: uppercase; line-height: .84; letter-spacing: -.015em; }
+.hero__lede { margin: 1.4rem 0 0; font-size: clamp(1rem, .9rem + .5vw, 1.3rem); font-weight: 500; max-width: 30ch; }
+
+.cartus { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(9.5rem, 1fr)); border: 1px solid rgba(242,238,231,.55); background: rgba(20,18,16,.35); }
+.cartus div { padding: .8rem 1rem .9rem; border-right: 1px solid rgba(242,238,231,.3); border-bottom: 1px solid rgba(242,238,231,.3); display: flex; flex-direction: column-reverse; gap: .25rem; }
+.cartus div:nth-child(2n) { border-right: 0; }
+.cartus div:nth-child(n+3) { border-bottom: 0; }
+.cartus dt { font-size: .7rem; letter-spacing: .04em; color: rgba(242,238,231,.78); }
+.cartus dd { margin: 0; font: 560 2.3rem/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; }
+.cartus small { font-size: .5em; margin-left: .2em; font-weight: 450; }
+
+/* ---------- secțiuni ---------- */
+.sec { padding: clamp(5rem, 11vw, 10rem) var(--gut) 0; max-width: calc(var(--max) + 2 * var(--gut)); margin: 0 auto; }
+.sec__head { margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+.sec__intro { max-width: 52ch; margin: 1.6rem 0 0; color: var(--grafit); }
+.sec__head--split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+.sec__head--split .sheet { grid-column: 1 / -1; }
+.sec__head--split h2 { max-width: 14ch; }
+.sec__head--split .sec__intro { margin: 0; }
+
+/* A.01 locație */
+.loc__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.loc__copy > p { margin: 0 0 1.2rem; max-width: 42ch; }
+.loc__copy > header + p { font-size: 1.12em; font-weight: 500; }
+.cota { position: relative; aspect-ratio: 600 / 420; }
+.cota svg { width: 100%; height: 100%; overflow: visible; }
+.cota__river { fill: none; stroke: #8fa7a9; stroke-width: 3; opacity: .55; }
+.cota__road { fill: none; stroke: var(--grafit); stroke-width: 1.5; stroke-dasharray: 5 6; }
+.cota__ext, .cota__tick { stroke: var(--antracit); stroke-width: 1; }
+.cota__line { stroke: var(--antracit); stroke-width: 1.2; }
+.cota__pin { fill: var(--antracit); }
+.cota__pin--here { fill: var(--verde); }
+.cota__label { position: absolute; font-size: .85rem; font-weight: 600; line-height: 1.25; }
+.cota__label em { display: block; font-style: normal; font-weight: 400; color: var(--grafit); font-size: .78rem; }
+.cota__label--a { left: calc(120 / 600 * 100% + 1.1rem); top: calc(70 / 420 * 100% - .9rem); }
+.cota__label--b { left: calc(430 / 600 * 100% + 1rem); top: calc(350 / 420 * 100% - .65rem); }
+.cota__value {
+  position: absolute; left: calc(233 / 600 * 100%); top: calc(252 / 420 * 100%);
+  transform: translate(-50%, -50%) rotate(42.1deg); transform-origin: 50% 50%;
+  font: 560 clamp(2rem, 1rem + 3vw, 3.4rem)/1 var(--display); font-stretch: 62%;
+  background: var(--tencuiala); padding: 0 .35em; white-space: nowrap;
+}
+.cota figcaption { position: absolute; left: 0; bottom: -2.2rem; font-size: .72rem; color: var(--grafit); }
+
+.axo { margin: clamp(5rem, 9vw, 8rem) calc(-1 * var(--gut)) 0; padding: 0 var(--gut); }
+.axo img { width: 100%; mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(ellipse 72% 78% at 52% 50%, #000 62%, transparent 100%);
+          mask-image: radial-gradient(ellipse 72% 78% at 52% 50%, #000 62%, transparent 100%); }
+.axo figcaption { margin-top: 1rem; font-size: .8rem; color: var(--grafit); max-width: 70ch; }
+.axo figcaption span, .spec__img figcaption, .ext__a figcaption { font-weight: 600; color: var(--antracit); }
+.axo figcaption span::after { content: " — "; font-weight: 400; color: var(--grafit); }
+
+/* A.02 fișă tehnică */
+.spec__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.spec__img { position: sticky; top: 6rem; }
+.spec__img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 38% 50%; }
+.spec__img figcaption { margin-top: .8rem; font-size: .78rem; font-weight: 500; color: var(--grafit); }
+.spec__table { width: 100%; border-collapse: collapse; }
+.spec__table tr { border-top: 1px solid var(--linie-tare); }
+.spec__table tr:last-child { border-bottom: 1px solid var(--linie-tare); }
+.spec__table th { text-align: left; vertical-align: top; padding: 1.3rem 1.5rem 1.4rem 0; width: 38%; font: 560 1.45rem/1.05 var(--display); font-stretch: 62%; }
+.spec__table td { padding: 1.3rem 0 1.4rem; }
+.spec__table ul { list-style: none; margin: 0; padding: 0; }
+.spec__table li { padding: .3rem 0; border-bottom: 1px solid var(--linie); }
+.spec__table li:last-child { border-bottom: 0; }
+
+/* A.03 apartamente */
+.apt__head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; }
+.apt__tabs { display: flex; border: 1px solid var(--antracit); }
+.apt__tabs button {
+  appearance: none; border: 0; background: transparent; color: var(--antracit); cursor: pointer;
+  padding: .8rem 1.3rem; text-align: left; font: inherit; display: grid; gap: .1rem; min-width: 9rem;
+  transition: background-color .35s var(--ease), color .35s var(--ease);
+}
+.apt__tabs button + button { border-left: 1px solid var(--antracit); }
+.apt__tabs button span { font-size: .72rem; letter-spacing: .06em; }
+.apt__tabs button b { font: 560 1.7rem/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; }
+.apt__tabs button:hover { background: var(--terrazzo); }
+.apt__tabs button[aria-selected="true"] { background: var(--antracit); color: var(--tencuiala); }
+
+.apt__panel { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.plan__stage { position: relative; max-width: calc(80vh * var(--ar, 1)); margin-inline: auto; }
+.plan__stage img { width: 100%; mix-blend-mode: multiply; }
+.plan__zones { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.plan__zones rect { fill: var(--verde); opacity: 0; transition: opacity .3s var(--ease); }
+.plan__zones rect.is-on { opacity: .22; }
+.plan__marks { position: absolute; inset: 0; }
+.mark {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  border: 1px solid var(--antracit); background: var(--tencuiala); color: var(--antracit);
+  font: 600 .74rem/1 var(--text); font-variant-numeric: tabular-nums; cursor: pointer; padding: 0;
+  transition: background-color .25s var(--ease), color .25s var(--ease), transform .35s var(--ease);
+}
+.mark.is-on { background: var(--verde); border-color: var(--verde); color: var(--tencuiala); transform: translate(-50%, -50%) scale(1.18); }
+.plan__north { position: absolute; left: 50%; bottom: -1.9rem; transform: translateX(-50%); font-size: .7rem; letter-spacing: .06em; color: var(--grafit); }
+.plan figcaption { margin-top: 2.6rem; font-size: .74rem; color: var(--grafit); }
+
+.apt__desc { margin: 0 0 2rem; font-size: 1.05em; max-width: 44ch; }
+.rooms { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.rooms thead th { font-size: .7rem; font-weight: 500; letter-spacing: .06em; color: var(--grafit); text-align: left; padding: 0 0 .5rem; border-bottom: 1px solid var(--linie-tare); }
+.rooms .num { text-align: right; }
+.rooms tbody tr { cursor: pointer; transition: background-color .2s var(--ease); }
+.rooms tbody td { padding: .55rem 0; border-bottom: 1px solid var(--linie); }
+.rooms tbody td:first-child { width: 2.6rem; color: var(--grafit); font-size: .8rem; }
+.rooms tbody tr.is-on { background: rgba(47, 106, 78, .1); }
+.rooms tbody tr.is-on td:first-child { color: var(--verde); font-weight: 700; }
+.rooms tfoot th, .rooms tfoot td { padding: .9rem 0 0; border-top: 1px solid var(--antracit); text-align: left; font: 560 1.8rem/1 var(--display); font-stretch: 62%; }
+.rooms tfoot td { text-align: right; }
+.apt__extra { margin: 1.2rem 0 0; font-size: .82rem; color: var(--grafit); }
+
+.interiors { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(.75rem, 1.5vw, 1.25rem); margin-top: clamp(4rem, 8vw, 7rem); }
+.interiors img { width: 100%; object-fit: cover; }
+.interiors figcaption { font-size: .75rem; color: var(--grafit); padding-top: .5rem; }
+.interiors .i1 { grid-column: 1 / span 8; }
+.interiors .i2 { grid-column: 9 / span 4; align-self: end; }
+.interiors .i3 { grid-column: 2 / span 5; }
+.interiors .i4 { grid-column: 7 / span 6; margin-top: 4rem; }
+.interiors .i5 { grid-column: 3 / span 6; }
+.interiors .i1 img { aspect-ratio: 16 / 9; }
+.interiors .i2 img { aspect-ratio: 3 / 4; }
+.interiors .i3 img, .interiors .i5 img { aspect-ratio: 4 / 3; }
+.interiors .i4 img { aspect-ratio: 3 / 2; }
+
+/* A.04 exterior */
+.ext__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: end; }
+.ext__text h2 { font-size: clamp(2rem, 1.2rem + 2.6vw, 3.6rem); margin-bottom: 2rem; }
+.ext__a img { width: 100%; }
+.ext__a figcaption { margin-top: .8rem; font-size: .78rem; font-weight: 500; }
+.ext__note { margin: 0; font-size: 1.1em; max-width: 34ch; border-top: 1px solid var(--linie-tare); padding-top: 1.2rem; }
+
+/* A.05 rezervare: fotografia se topește în antracitul tablei */
+.contact { position: relative; margin-top: clamp(6rem, 12vw, 11rem); background: var(--antracit); color: var(--tencuiala); }
+.contact__img { position: relative; }
+.contact__img img { width: 100%; max-height: 92vh; object-fit: cover; object-position: 50% 60%; }
+.contact__img::before { content: ""; position: absolute; inset: 0 0 auto; height: 28%; background: linear-gradient(var(--tencuiala), rgba(242,238,231,0)); z-index: 1; }
+.contact__img::after { content: ""; position: absolute; inset: auto 0 0; height: 55%; background: linear-gradient(rgba(31,29,26,0), var(--antracit)); }
+.contact__body { position: relative; max-width: calc(var(--max) + 2 * var(--gut)); margin: -12vw auto 0; padding: 0 var(--gut) clamp(4rem, 8vw, 7rem); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(2rem, 6vw, 6rem); }
+.contact__body > * { grid-column: 1; }
+.contact .sheet { color: rgba(242,238,231,.7); }
+.contact h2 { font-size: clamp(2.8rem, 1.2rem + 6vw, 7rem); max-width: 12ch; }
+.contact__body > p:not(.sheet) { max-width: 46ch; color: rgba(242,238,231,.82); margin: 1.6rem 0 2.4rem; }
+.call {
+  display: inline-grid; justify-self: start; gap: .35rem; text-decoration: none;
+  padding: 1.1rem 1.5rem 1.2rem; background: var(--verde); color: var(--tencuiala);
+  transition: background-color .3s var(--ease);
+}
+.call:hover { background: #377a5a; }
+.call__label { font-size: .75rem; letter-spacing: .05em; }
+.call__num { font: 560 clamp(2rem, 1.4rem + 2.4vw, 3.2rem)/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.credits { grid-column: 2 !important; grid-row: 2 / span 4; align-self: end; margin: 0; border-top: 1px solid rgba(242,238,231,.35); }
+.credits div { padding: .9rem 0; border-bottom: 1px solid rgba(242,238,231,.2); }
+.credits dt { font-size: .7rem; letter-spacing: .05em; color: rgba(242,238,231,.65); }
+.credits dd { margin: .2rem 0 0; font-weight: 500; }
+
+.foot { background: var(--antracit); color: rgba(242,238,231,.55); padding: 1.4rem var(--gut) 2rem; font-size: .72rem; border-top: 1px solid rgba(242,238,231,.12); }
+.foot p { margin: 0 auto; max-width: var(--max); }
+
+/* ---------- ecrane înguste ---------- */
+@media (max-width: 900px) {
+  .bar__nav { display: none; }
+  .bar__tel { margin-left: auto; }
+  .hero { grid-template-columns: 1fr; align-content: end; }
+  .hero__cartus { max-width: 26rem; }
+  .loc__grid, .spec__grid, .apt__panel, .ext__grid, .contact__body { grid-template-columns: 1fr; }
+  .sec__head--split { grid-template-columns: 1fr; }
+  .sec__head--split .sec__intro { margin-top: 1.4rem; }
+  .spec__img { position: static; }
+  .spec__img img { aspect-ratio: 3 / 2; }
+  .cota { margin-top: 1rem; }
+  .interiors { grid-template-columns: 1fr 1fr; }
+  .interiors .i1, .interiors .i4 { grid-column: 1 / -1; margin-top: 0; }
+  .interiors .i2, .interiors .i3, .interiors .i5 { grid-column: auto; }
+  .interiors .i2 img, .interiors .i3 img, .interiors .i5 img { aspect-ratio: 4 / 5; }
+  .credits { grid-column: 1 !important; grid-row: auto; margin-top: 3rem; }
+  .contact__body { margin-top: -20vw; }
+}
+@media (max-width: 560px) {
+  .spec__table th { display: block; width: auto; padding-bottom: .4rem; }
+  .spec__table td { display: block; padding-top: 0; }
+  .spec__table tr { display: block; }
+  .apt__tabs { width: 100%; }
+  .apt__tabs button { flex: 1; min-width: 0; }
+  .mark { width: 1.5rem; height: 1.5rem; font-size: .66rem; }
+  .cota__label { font-size: .72rem; }
+  .cota__label em { font-size: .66rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; }
+  .seams { display: none; }
+}
