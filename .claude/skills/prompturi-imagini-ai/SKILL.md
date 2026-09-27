@@ -89,7 +89,11 @@ Când imaginea va fi animată:
 
 Pentru teste A/B generezi 3–5 variante care diferă **într-o singură dimensiune** (fundal, unghi sau paletă), ca să afli ce funcționează. Nu faci 5 imagini complet diferite.
 
-Vocabularul de fotografie pe nișe (mâncare, arhitectură, instrumente) e în [reference/vocabular-foto.md](reference/vocabular-foto.md).
+Vocabularul de fotografie pe nișe (mâncare, arhitectură, instrumente) e în [reference/vocabular-foto.md](reference/vocabular-foto.md). Pentru realism și scheme de lumină folosește skill-ul `realism-si-lumina`.
+
+## Prompturi în JSON
+
+JSON-ul **nu** face modelul mai bun: la teste A/B iese la fel ca proza. Merită ca **șablon** (fișa fixă a clientului), pentru **variante A/B** (schimbi un singur câmp) și pentru **automatizare** în agent. Păstrezi fișa în JSON și trimiți modelului proza generată de `scripts/din_json.py`. Detalii și exemple în [reference/prompturi-json.md](reference/prompturi-json.md).
 
 ## Checklist
 

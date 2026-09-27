@@ -9,11 +9,13 @@ Folderul `.claude/` nu e publicat pe GitHub Pages (workflow-ul copiază doar `*.
 | Skill | Pentru ce |
 |---|---|
 | `prompturi-video-ai` | formula de prompt video, image-to-video, @image1, multi-shot, cameră, audio, depanare, note pe modele |
-| `prompturi-imagini-ai` | prompturi de imagine, text în imagine, editări, vocabular foto pe nișe |
+| `prompturi-imagini-ai` | prompturi de imagine, text în imagine, editări, vocabular foto pe nișe, prompturi JSON + `scripts/din_json.py` |
 | `reclame-imobiliare` | reclame off-plan, animarea randărilor, hook-uri, Meta Housing, fapte Arcadian + prompturi gata făcute |
 | `reclame-brutarie` | food cinematography, cadre-semnătură, concepte locale, calendar lunar |
 | `reclame-magazin-muzica` | instrumente, atenție la branduri, concepte |
 | `agent-reclame-higgsfield` | fluxul agentului: brief → cost → generare → QA → registru → livrare; `scripts/registru.py`; system prompt |
+| `realism-si-lumina` | cum faci AI-ul să pară fotografie reală: lumină, aparat, imperfecțiuni, semnele de AI și reparația lor, scheme de lumină gata de copiat |
+| `asseturi-web-ai` | asset-uri pentru site: style lock, hero, bucle video, carduri, iconițe, OG, 3D; `scripts/optimizeaza.sh` (WebP, srcset, MP4 + WebM, poster, tag HTML) |
 | `scriere-prompturi-agenti` | cum scrii prompturi, system prompts și skill-uri pentru Claude și agenți |
 
 ## Instalare (Arch)
@@ -28,6 +30,9 @@ cp -r .claude/skills/*/ ~/.claude/skills/
 npm i -g @higgsfield/cli          # sau: curl -fsSL https://raw.githubusercontent.com/higgsfield-ai/cli/main/install.sh | sh
 higgsfield auth login
 npx skills add higgsfield-ai/skills
+
+# pentru optimizeaza.sh
+sudo pacman -S ffmpeg
 ```
 
 Skill-urile de aici se bazează pe cele oficiale pentru execuție. Instalează-le pe amândouă.
@@ -42,6 +47,9 @@ Skill-urile de aici se bazează pe cele oficiale pentru execuție. Instalează-l
 - Kling 3.0: https://blog.fal.ai/kling-3-0-prompting-guide/ · https://kling.ai/quickstart/klingai-video-3-model-user-guide
 - GPT Image (OpenAI): https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide
 - Nano Banana Pro (Google): https://blog.google/products-and-platforms/products/gemini/prompting-tips-nano-banana-pro/
+- Test JSON vs. proză (Nano Banana): https://chasejarvis.com/blog/does-json-prompting-actually-work-tested-with-nano-banana/
+- Realism fotografic: https://roo.beehiiv.com/p/why-photorealistic-doesn-t-work-in-ai-prompts-and-what-to-write-instead
+- Video hero pentru web: https://johnbeales.com/2025/performant-video-hero-backgrounds/ · https://www.gomasuga.com/articles/best-practices-for-html-background-videos
 - Anthropic, skill-uri: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 - Anthropic, prompting: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices
 - Etichete AI în reclamele Meta: https://coinis.com/blog/meta-ai-content-labeling-facebook-instagram-ads-2026

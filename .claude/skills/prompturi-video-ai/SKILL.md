@@ -108,6 +108,11 @@ Formulare utile care chiar funcționează: `photorealistic, no CGI look`, `natur
 - I2V: 20–60 de cuvinte, doar mișcare și ce rămâne fix.
 - Multi-shot: câte 1–2 fraze pe cadru.
 
+## JSON și realism
+
+- Prompturi în JSON: utile ca șablon și pentru variante, nu ca „truc”. Vezi skill-ul `prompturi-imagini-ai` (`reference/prompturi-json.md` și `scripts/din_json.py`, care funcționează și pentru video, cu câmpurile `format`, `actiune`, `camera`, `audio`).
+- Clip care arată „AI” (mișcare de plastic, lumină fără sursă): skill-ul `realism-si-lumina`.
+
 ## Checklist înainte de trimitere
 
 ```
