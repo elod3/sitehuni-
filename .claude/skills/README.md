@@ -16,6 +16,7 @@ Folderul `.claude/` nu e publicat pe GitHub Pages (workflow-ul copiază doar `*.
 | `agent-reclame-higgsfield` | fluxul agentului: brief → cost → generare → QA → registru → livrare; `scripts/registru.py`; system prompt |
 | `realism-si-lumina` | cum faci AI-ul să pară fotografie reală: lumină, aparat, imperfecțiuni, semnele de AI și reparația lor, scheme de lumină gata de copiat |
 | `asseturi-web-ai` | asset-uri pentru site: style lock, hero, bucle video, carduri, iconițe, OG, 3D; `scripts/optimizeaza.sh` (WebP, srcset, MP4 + WebM, poster, tag HTML) |
+| `aparare-prompt-injection` | cum funcționează prompt injection și cum te aperi: reguli pentru AI, agenți siguri (trifecta, Rule of Two, tipare), Claude Code (permisiuni, sandbox, hook), teste; `scripts/scan_injectie.py` (scanner + hook) |
 | `scriere-prompturi-agenti` | cum scrii prompturi, system prompts și skill-uri pentru Claude și agenți |
 
 ## Instalare (Arch)
@@ -33,6 +34,9 @@ npx skills add higgsfield-ai/skills
 
 # pentru optimizeaza.sh
 sudo pacman -S ffmpeg
+
+# sandbox pentru Claude Code (vezi aparare-prompt-injection/reference/claude-code.md)
+sudo pacman -S bubblewrap socat
 ```
 
 Skill-urile de aici se bazează pe cele oficiale pentru execuție. Instalează-le pe amândouă.
@@ -50,6 +54,7 @@ Skill-urile de aici se bazează pe cele oficiale pentru execuție. Instalează-l
 - Test JSON vs. proză (Nano Banana): https://chasejarvis.com/blog/does-json-prompting-actually-work-tested-with-nano-banana/
 - Realism fotografic: https://roo.beehiiv.com/p/why-photorealistic-doesn-t-work-in-ai-prompts-and-what-to-write-instead
 - Video hero pentru web: https://johnbeales.com/2025/performant-video-hero-backgrounds/ · https://www.gomasuga.com/articles/best-practices-for-html-background-videos
+- Prompt injection: https://genai.owasp.org/llmrisk/llm01-prompt-injection/ · https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html · https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/ · https://ai.meta.com/blog/practical-ai-agent-security/ · https://arxiv.org/abs/2506.08837 · https://www.microsoft.com/en-us/msrc/blog/2025/07/how-microsoft-defends-against-indirect-prompt-injection-attacks · https://www.anthropic.com/news/prompt-injection-defenses · https://code.claude.com/docs/en/sandboxing
 - Anthropic, skill-uri: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 - Anthropic, prompting: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices
 - Etichete AI în reclamele Meta: https://coinis.com/blog/meta-ai-content-labeling-facebook-instagram-ads-2026
