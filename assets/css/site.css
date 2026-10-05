@@ -36,7 +36,9 @@
   --antracit-2: #2b2925;
   --grafit: #5b564f;
   --stejar: #9c7048;
-  --verde: #2f6a4e;          /* verdele copertei */
+  --verde: #2f6a4e;          /* marcajul activ: camera selectată, butonul de apel */
+  --logo-verde: #283525;     /* culorile logoului, măsurate pe logoul din broșură */
+  --logo-auriu: #a2885c;
   --linie: rgba(31, 29, 26, .16);
   --linie-tare: rgba(31, 29, 26, .55);
 
@@ -85,8 +87,12 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 }
 [data-bar="light"] .bar { color: var(--antracit); }
 .bar.is-solid { background: rgba(242, 238, 231, .94); color: var(--antracit); padding-block: .7rem; box-shadow: 0 1px 0 var(--linie); }
-.bar__mark { font: 600 1.05rem/1 var(--display); font-stretch: 62%; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; display: flex; gap: .4em; }
-.bar__mark span { font-weight: 350; }
+/* logoul vine din sprite (assets/img/brand); literele iau culoarea barei, linia și RESIDENCE rămân aurii */
+.bar__mark { display: block; flex: none; line-height: 0; --logo-ink: currentColor; --logo-gold: #c9ad7c; }
+.bar__mark svg { display: block; height: clamp(2.1rem, 1.6rem + 1vw, 2.6rem); width: auto; aspect-ratio: 1145 / 244; transition: height .5s var(--ease); }
+[data-bar="light"] .bar__mark, .bar.is-solid .bar__mark { --logo-ink: var(--logo-verde); --logo-gold: var(--logo-auriu); }
+.menu-open .bar .bar__mark { --logo-ink: currentColor; --logo-gold: #c9ad7c; }
+.bar.is-solid .bar__mark svg { height: 2.1rem; }
 .bar__nav { display: flex; gap: 1.6rem; margin-left: auto; font-size: .82rem; font-weight: 500; }
 .bar__nav a { text-decoration: none; padding-block: .3rem; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s var(--ease); }
 .bar__nav a:hover, .bar__nav a:focus-visible, .bar__nav a[aria-current="page"] { background-size: 100% 1px; }
@@ -129,6 +135,29 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 .sec__head--split .sheet { grid-column: 1 / -1; }
 .sec__head--split h2 { max-width: 14ch; }
 .sec__head--split .sec__intro { margin: 0; }
+
+/* nZEB: secțiunea prin fațadă + ce face clădirea în fiecare anotimp */
+.nzeb__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.nzeb__fig { margin: 0; }
+.nzeb__fig svg { display: block; width: 100%; height: auto; overflow: visible; }
+.nzeb__fig svg text { font: 500 13px var(--text); fill: var(--grafit); }
+.nzeb__ground, .nzeb__wall, .nzeb__trunk { fill: none; stroke: var(--antracit); stroke-width: 2; }
+.nzeb__wall { stroke-width: 6; }
+.nzeb__stor { fill: var(--antracit); }
+.nzeb__blind { stroke: var(--antracit); stroke-width: 2; stroke-dasharray: 3 3; }
+.nzeb__crown { fill: none; stroke: var(--verde); stroke-width: 1.5; stroke-dasharray: 2 4; }
+.nzeb__ray { stroke-width: 1.5; }
+.nzeb__ray--w { stroke: var(--stejar); }
+.nzeb__ray--s { stroke: var(--grafit); stroke-dasharray: 6 4; }
+.nzeb__fig figcaption { margin-top: .8rem; font-size: .78rem; color: var(--grafit); }
+.nzeb__list { margin: 0; border-top: 1px solid var(--linie-tare); }
+.nzeb__list div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: .4rem 1.5rem; padding: 1.3rem 0 1.4rem; border-bottom: 1px solid var(--linie-tare); }
+.nzeb__list dt { font: 560 1.45rem/1.05 var(--display); font-stretch: 62%; }
+.nzeb__list dt span { display: block; margin-bottom: .45rem; font: 500 .74rem/1.2 var(--text); letter-spacing: .08em; color: var(--stejar); }
+.nzeb__list dd { margin: 0; color: var(--grafit); }
+.nzeb__result { grid-column: 2; margin: 1.6rem 0 0; max-width: 52ch; font-weight: 500; }
+@media (max-width: 900px) { .nzeb__grid { grid-template-columns: 1fr; } .nzeb__result { grid-column: 1; } }
+@media (max-width: 560px) { .nzeb__list div { grid-template-columns: 1fr; } }
 
 /* A.01 locație */
 .loc__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
@@ -249,6 +278,9 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 .call:hover { background: #377a5a; }
 .call__label { font-size: .75rem; letter-spacing: .05em; }
 .call__num { font: 560 clamp(2rem, 1.4rem + 2.4vw, 3.2rem)/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.contact__body > p.contact__alt { margin: 1.1rem 0 0; font-size: .9rem; }
+.contact__alt a { color: var(--tencuiala); font-weight: 600; text-underline-offset: .3em; }
+.contact__alt a:hover { color: #8fc2a6; }
 .credits { grid-column: 2 !important; grid-row: 2 / span 4; align-self: end; margin: 0; border-top: 1px solid rgba(242,238,231,.35); }
 .credits div { padding: .9rem 0; border-bottom: 1px solid rgba(242,238,231,.2); }
 .credits dt { font-size: .7rem; letter-spacing: .05em; color: rgba(242,238,231,.65); }
@@ -256,8 +288,8 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 
 .foot { background: var(--antracit); color: rgba(242,238,231,.55); padding: 1.4rem var(--gut) 2rem; font-size: .72rem; border-top: 1px solid rgba(242,238,231,.12); }
 .foot__in { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: .5rem 2.5rem; }
-.foot__mark { grid-row: span 2; color: var(--tencuiala); text-decoration: none; font: 600 1.35rem/1 var(--display); font-stretch: 62%; letter-spacing: .06em; text-transform: uppercase; display: flex; gap: .4em; }
-.foot__mark span { font-weight: 350; }
+.foot__mark { grid-row: span 2; align-self: center; line-height: 0; color: var(--tencuiala); --logo-ink: var(--tencuiala); --logo-gold: #c9ad7c; }
+.foot__mark svg { display: block; width: 7.5rem; height: auto; aspect-ratio: 1165 / 598; }
 .foot p { margin: 0; }
 .foot__copy { color: rgba(242,238,231,.8); }
 @media (max-width: 560px) { .foot__in { grid-template-columns: 1fr; } .foot__mark { grid-row: auto; margin-bottom: .6rem; } }
@@ -309,6 +341,8 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 .menu__list a[aria-current="page"] { color: #8fc2a6; }
 .menu__tel { text-decoration: none; font: 560 2rem/1 var(--display); font-stretch: 62%; display: grid; gap: .3rem; }
 .menu__tel span { font: 500 .72rem/1 var(--text); color: rgba(242,238,231,.6); }
+.menu__contact { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; }
+.menu__wa { font: 600 .85rem/1 var(--text); color: rgba(242,238,231,.85); text-underline-offset: .3em; }
 .menu-open .bar { color: var(--tencuiala); background: transparent; box-shadow: none; }
 
 /* ---------- loader: fundalul e făcut din panourile verticale ale fațadei; randările apar pe
@@ -322,19 +356,19 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 .loader__seams i { background: var(--antracit); transform-origin: 50% 0; box-shadow: inset -1px 0 0 rgba(242,238,231,.09); }
 .loader__frame {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: min(52vw, 620px); height: calc(min(52vw, 620px) * 956 / 1730); overflow: hidden; background: var(--antracit-2);
+  width: min(52vw, 620px); height: calc(min(52vw, 620px) * 1144 / 2048); overflow: hidden; background: var(--antracit-2);
 }
 .loader__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; clip-path: inset(100% 0 0 0); }
 .loader__place, .loader__mark, .loader__count { position: absolute; margin: 0; }
 .loader__place { left: var(--gut); top: clamp(1.25rem, 3vw, 2rem); font: 500 .74rem/1.2 var(--text); letter-spacing: .08em; color: rgba(242,238,231,.7); }
-.loader__mark { left: var(--gut); bottom: clamp(1.25rem, 3vw, 2rem); font: 600 clamp(1.6rem, 1rem + 2vw, 2.6rem)/1 var(--display); font-stretch: 62%; letter-spacing: .05em; text-transform: uppercase; display: flex; gap: .35em; }
-.loader__mark span { font-weight: 350; }
+.loader__mark { left: var(--gut); bottom: clamp(1.25rem, 3vw, 2rem); line-height: 0; --logo-ink: var(--tencuiala); --logo-gold: #c9ad7c; }
+.loader__mark svg { display: block; width: clamp(7.5rem, 5rem + 7vw, 11.5rem); height: auto; aspect-ratio: 1165 / 598; }
 .loader__count { right: var(--gut); bottom: clamp(1.25rem, 3vw, 2rem); display: grid; justify-items: end; gap: .35rem; text-align: right; }
 .loader__count span { font: 500 .78rem/1.2 var(--text); color: rgba(242,238,231,.72); }
 .loader__count b { font: 560 clamp(1.6rem, 1rem + 2vw, 2.6rem)/1 var(--display); font-stretch: 62%; font-variant-numeric: tabular-nums; }
 @keyframes arc-safety { to { visibility: hidden; } }
 @media (max-width: 560px) {
-  .loader__frame { width: 78vw; height: calc(78vw * 956 / 1730); }
+  .loader__frame { width: 78vw; height: calc(78vw * 1144 / 2048); }
   .loader__mark { bottom: 4.2rem; }
   .loader__count { left: var(--gut); right: auto; justify-items: start; text-align: left; }
   .loader__count { bottom: clamp(1.25rem, 3vw, 2rem); grid-auto-flow: column; align-items: baseline; gap: 1rem; }
