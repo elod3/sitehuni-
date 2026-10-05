@@ -4,50 +4,50 @@
 (() => {
   const APT = {
     t1: {
-      name: 'Tip 1', w: 1028, h: 1374, total: '71,3', door: [52, 98],
+      name: 'Tip 1', w: 1298, h: 1804, total: '71,3', door: [52, 97],
       desc: 'Un apartament de 71,3 m², cu acces direct din exterior. Zona de zi, generoasă și luminoasă, se leagă de spațiul de noapte și de birou, fiecare clar delimitat. Gândit pentru un cuplu tânăr.',
       extra: 'Construcție nZEB, aliniată standardelor actuale de eficiență energetică.',
       rooms: [
-        ['Living', '12', [58, 52, 37, 44]],
-        ['Dormitor', '13,8', [6, 52, 38, 42]],
-        ['Bucătărie', '11,8', [46, 4, 49, 26]],
-        ['Dining', '11,6', [46, 30, 41, 22]],
-        ['Birou', '8,7', [6, 4, 38, 25]],
-        ['Baie', '4,3', [6, 30, 22, 20]],
-        ['Hol', '5,8', [29, 29, 16, 23]],
-        ['Vestibul', '3,3', [45, 80, 13, 16]],
+        ['Living', '12', [57.7, 51.9, 37.3, 43.3]],
+        ['Dormitor', '13,8', [5.3, 51.9, 38.3, 41.4]],
+        ['Bucătărie', '11,8', [45.6, 4.6, 49.3, 25.6]],
+        ['Dining', '11,6', [45.6, 30.2, 41.3, 21.7]],
+        ['Birou', '8,7', [5.3, 4.6, 38.3, 24.6]],
+        ['Baie', '4,3', [5.3, 30.2, 22.2, 19.7]],
+        ['Hol', '5,8', [28.5, 29.2, 16.1, 22.7]],
+        ['Vestibul', '3,3', [44.6, 79.5, 13.1, 15.8]],
       ],
       // fișier, legendă, lățime, înălțime, încăperile în care e făcută fotografia
       photos: [
-        ['t1-living', 'Living cu deschidere spre grădină', 1764, 1012, [0]],
-        ['t1-dining', 'Dining, cu biroul vitrat în fundal', 1754, 1165, [3, 4]],
-        ['t1-dormitor', 'Dormitor cu dressing pe toată lungimea peretelui', 1751, 1102, [1]],
-        ['t1-baie', 'Baie cu duș walk-in', 1765, 1104, [5]],
+        ['t1-living', 'Living cu deschidere spre grădină', 2563, 1470, [0]],
+        ['t1-dining', 'Dining, cu biroul vitrat în fundal', 2520, 1660, [3, 4]],
+        ['t1-dormitor', 'Dormitor cu dressing pe toată lungimea peretelui', 2544, 1596, [1]],
+        ['t1-baie', 'Baie cu duș walk-in', 2528, 1570, [5]],
       ],
     },
     t2: {
-      name: 'Tip 2', w: 1815, h: 1346, total: '122,26', door: [41, 98],
+      name: 'Tip 2', w: 2290, h: 1695, total: '122,26', door: [41, 97],
       desc: 'Un apartament de 4 camere, cu zona de zi clar separată de cea de noapte. Livingul deschis se continuă cu bucătăria și iese pe un balcon de 8,43 m². Două dormitoare, birou independent și două băi complete.',
       extra: 'Balconul de 8,43 m² nu e inclus în suprafața utilă. Construcție nZEB.',
       rooms: [
-        ['Vestibul', '5,29', [36, 72, 9, 22]],
-        ['Living', '29,93', [3, 15, 41, 40]],
-        ['Bucătărie', '14,57', [3, 55, 33, 24]],
-        ['Cămară', '5,81', [3, 80, 21, 13]],
-        ['Grup sanitar', '2,89', [24, 80, 11, 13]],
-        ['Hol', '10,19', [45, 60, 41, 12]],
-        ['Dormitor 1', '17,35', [50, 15, 24, 44]],
-        ['Dormitor 2', '14,90', [76, 15, 22, 33]],
-        ['Birou', '8,46', [50, 73, 24, 20]],
-        ['Baie 1', '4,83', [86, 47, 12, 24]],
-        ['Baie 2', '8,04', [75, 73, 23, 20]],
+        ['Vestibul', '5,29', [35.9, 71.4, 8.9, 21.4]],
+        ['Living', '29,93', [3.2, 15.8, 40.6, 39.0]],
+        ['Bucătărie', '14,57', [3.2, 54.8, 32.7, 23.4]],
+        ['Cămară', '5,81', [3.2, 79.2, 20.8, 12.7]],
+        ['Grup sanitar', '2,89', [24.0, 79.2, 10.9, 12.7]],
+        ['Hol', '10,19', [44.8, 59.7, 40.6, 11.7]],
+        ['Dormitor 1', '17,35', [49.7, 15.8, 23.7, 42.9]],
+        ['Dormitor 2', '14,90', [75.4, 15.8, 21.8, 32.2]],
+        ['Birou', '8,46', [49.7, 72.4, 23.7, 19.5]],
+        ['Baie 1', '4,83', [85.3, 47.0, 11.9, 23.4]],
+        ['Baie 2', '8,04', [74.4, 72.4, 22.8, 19.5]],
       ],
       photos: [
-        ['t2-living', 'Living, cu bucătăria pe peretele din fundal', 1777, 1039, [1]],
-        ['t2-bucatarie', 'Insula bucătăriei, cu livingul în spate', 1795, 1055, [2, 1]],
-        ['t2-birou', 'Birou cu lumină de sus', 1834, 1183, [8]],
-        ['t2-dormitor', 'Dormitor', 1823, 1103, [6, 7]],
-        ['t2-baie', 'Baie cu duș walk-in', 1921, 1140, [9, 10]],
+        ['t2-living', 'Living, cu bucătăria pe peretele din fundal', 2624, 1553, [1]],
+        ['t2-bucatarie', 'Insula bucătăriei, cu livingul în spate', 2679, 1564, [2, 1]],
+        ['t2-birou', 'Birou cu lumină de sus', 2528, 1607, [8]],
+        ['t2-dormitor', 'Dormitor', 2538, 1536, [6, 7]],
+        ['t2-baie', 'Baie cu duș walk-in', 2572, 1520, [9, 10]],
       ],
     },
   };
@@ -252,8 +252,8 @@
     zones.innerHTML = a.rooms.map(([, , [x, y, w, h]]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`).join('');
     wrap.innerHTML = a.photos.map(([f, cap, w, h, rooms]) => `
       <figure class="tour__photo" data-rooms="${rooms.join(',')}">
-        <div class="tour__mask"><img src="assets/img/${f}-1800.webp" srcset="assets/img/${f}-900.webp 900w, assets/img/${f}-1800.webp 1800w"
-          sizes="(min-width: 900px) 55vw, 100vw" width="${w}" height="${h}" loading="lazy" alt="${cap}"></div>
+        <div class="tour__mask"><img src="assets/img/${f}-1800.webp" srcset="assets/img/${f}-900.webp 900w, assets/img/${f}-1800.webp 1800w, assets/img/${f}-hd.webp ${w}w"
+          sizes="(min-width: 900px) 66vw, 120vw" width="${w}" height="${h}" loading="lazy" alt="${cap}"></div>
         <figcaption><span>${cap}</span><b>${rooms.map(r => a.rooms[r][0]).join(' · ')}</b></figcaption>
       </figure>`).join('');
 
