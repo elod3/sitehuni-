@@ -30,6 +30,11 @@ PAGES = {
         "desc": "Apartament de 4 camere, 122,26 m², balcon de 8,43 m², două dormitoare, birou și două băi. Plan interactiv cu suprafețele pe încăperi.",
         "page": "apt", "type": "t2", "nav": "tip-2", "bar": "light", "preload": "assets/img/t2-living-1800.webp",
     },
+    "tur.html": {
+        "title": "Tur 3D prin clădire — Arcadian Residence",
+        "desc": "Plimbă-te prin modelul 3D al ansamblului Arcadian Residence: parter, scară și mansardă, cu mobila din proiect. WASD și mouse, sau degetele pe telefon.",
+        "page": "tur", "nav": "tur", "bar": "dark", "preload": "assets/img/ext-fatada-1800.webp",
+    },
     "contact.html": {
         "title": "Rezervare — Arcadian Residence",
         "desc": "Rezervă-ți apartamentul în Arcadian Residence. Tur virtual 3D cu echipa de vânzări: 0770 916 916.",
@@ -41,7 +46,8 @@ NAV = [
     ("ansamblu", "ansamblu.html", "Ansamblul", "01"),
     ("tip-1", "tip-1.html", "Tip 1 · 71,3 m²", "02"),
     ("tip-2", "tip-2.html", "Tip 2 · 122,26 m²", "03"),
-    ("contact", "contact.html", "Rezervare", "04"),
+    ("tur", "tur.html", "Tur 3D", "04"),
+    ("contact", "contact.html", "Rezervare", "05"),
 ]
 
 

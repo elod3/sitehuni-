@@ -34,6 +34,14 @@ Paginile se generează din `src/` cu `python3 build.py`. Nu edita direct fișier
 - `assets/img/`: randările și planurile extrase din PDF-ul broșurii, la rezoluția lor nativă (2041–2821 px), în trei mărimi: `-900`, `-1800` și `-hd`. Excepție: `ext-alee-2-1800` e mărită 2× cu Upscayl (high-fidelity), pentru că în broșură e doar la 1073 px.
 - `assets/img/brand/`: logoul (SVG pentru fundal deschis și `-light` pentru închis), favicon, apple-touch-icon. `assets/img/og.jpg` e imaginea pentru linkuri distribuite.
 
+## Tur 3D (`tur.html`)
+
+- Modelul vine din IFC-ul ArchiCAD (`Locuințe colective.ifc`), convertit cu `~/Projects/arcadian-3d/tools/build_tour.py` (ifcopenshell) și comprimat cu `gltf-transform meshopt`: 48 MB → 9,3 MB în `assets/3d/arcadian.glb`.
+- Foile de ușă sunt separate de tocuri la conversie (balamaua e pe muchia opusă mânerului) și se rotesc în shader când te apropii, departe de tine. Datele sunt în `assets/3d/doors.json`.
+- Texturile sunt ambientCG (CC0), proiectate triplanar, fără UV-uri. Planurile din colț sunt randate din același model cu Blender (`tools/plan2.py`); `assets/3d/plan.json` ține limitele lor și punctele de pornire.
+- Coliziunea: un singur BVH (three-mesh-bvh) din toată geometria statică; capsula pornește de la 38 cm, ca treptele să se urce singure.
+- three.js r170 e vendorizat în `assets/vendor/three/`. `tur.html?debug` expune `window.__tur` pentru teste.
+
 ## Surse
 
 - Textul, cifrele și numărul de vânzări (0770 916 916) vin din broșura și flyerul oficial.

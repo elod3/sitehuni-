@@ -513,3 +513,98 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
   *, *::before, *::after { transition-duration: .01ms !important; }
   .seams, .curtain, .loader, .toc__peek { display: none !important; }
 }
+
+/* ---------- tur 3D ---------- */
+.tur [hidden] { display: none !important; }
+/* în tur, bara se dă la o parte cât timp mouse-ul e prins; Esc o aduce înapoi */
+[data-page="tur"] .bar:not(.is-solid) { background: linear-gradient(rgba(31,29,26,.5), rgba(31,29,26,0)); }
+[data-page="tur"] .bar { transition: opacity .4s var(--ease), transform .4s var(--ease), background-color .3s, padding .3s; }
+.tur-playing .bar { opacity: 0; transform: translateY(-100%); pointer-events: none; }
+.tur { background: var(--antracit); color: var(--tencuiala); }
+.tur__stage {
+  position: relative; height: 100svh; min-height: 520px; overflow: hidden;
+  background: var(--antracit) url("../img/ext-fatada-1800.webp") center / cover no-repeat;
+  user-select: none; -webkit-user-select: none; touch-action: none;
+}
+.tur__stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 1.2s var(--ease); }
+.tur__stage.is-ready canvas { opacity: 1; }
+.tur__stage.is-locked canvas { cursor: none; }
+
+.tur__intro {
+  position: absolute; inset: 0; display: flex; align-items: flex-end;
+  padding: clamp(5.5rem, 12vh, 8rem) var(--gut) var(--gut);
+  background: linear-gradient(90deg, rgba(31,29,26,.86) 0%, rgba(31,29,26,.6) 38%, rgba(31,29,26,0) 70%);
+}
+.tur__card { max-width: 30rem; }
+.tur__card .sheet { color: rgba(242,238,231,.68); }
+.tur__title { font-family: var(--display); font-stretch: 62%; font-weight: 560; line-height: .95; font-size: clamp(2.8rem, 1.6rem + 4.6vw, 5.6rem); margin: 0 0 1.1rem; }
+.tur__lead { margin: 0 0 1.6rem; color: rgba(242,238,231,.86); max-width: 34ch; }
+.tur__keys { display: grid; gap: .35rem; margin: 0 0 1.8rem; font-size: .86rem; }
+.tur__keys div { display: grid; grid-template-columns: 8.2rem 1fr; gap: 1rem; align-items: baseline; border-top: 1px solid rgba(242,238,231,.14); padding-top: .35rem; }
+.tur__keys dt { color: rgba(242,238,231,.6); }
+.tur__keys dd { margin: 0; }
+.tur__keys kbd {
+  display: inline-block; min-width: 1.5rem; padding: .05rem .3rem; margin-right: .2rem; text-align: center;
+  font: 600 .74rem/1.4 var(--text); color: var(--tencuiala); border: 1px solid rgba(242,238,231,.4); border-bottom-width: 2px; border-radius: 3px;
+}
+.tur__keys--touch, .is-touch .tur__keys--desk { display: none; }
+.is-touch .tur__keys--touch { display: grid; }
+
+/* încărcarea, desenată ca o linie de cotă */
+.tur__load { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.2rem; font-size: .78rem; color: rgba(242,238,231,.7); font-variant-numeric: tabular-nums; }
+.tur__cota { position: relative; flex: 1; height: 9px; border-inline: 1px solid rgba(242,238,231,.55); }
+.tur__cota::before { content: ""; position: absolute; left: 0; right: 0; top: 4px; border-top: 1px solid rgba(242,238,231,.22); }
+.tur__cota span { position: absolute; left: 0; right: 0; top: 3px; height: 3px; background: var(--tencuiala); transform-origin: left; transform: scaleX(0); transition: transform .3s linear; }
+.is-ready .tur__load { display: none; }
+
+.tur__start {
+  font: 560 1.5rem/1 var(--display); font-stretch: 62%; letter-spacing: .01em;
+  background: var(--verde); color: #fff; border: 0; padding: 1rem 1.6rem 1.05rem; cursor: pointer;
+  transition: background-color .2s var(--ease), transform .2s var(--ease);
+}
+.tur__start:hover:not(:disabled) { background: #377a5a; }
+.tur__start:active:not(:disabled) { transform: translateY(1px); }
+.tur__start:disabled { background: transparent; color: rgba(242,238,231,.6); padding-inline: 0; cursor: progress; }
+.tur__err { margin-top: 1rem; color: #f0b9a8; font-size: .9rem; }
+
+.tur__hud { position: absolute; inset: 0; pointer-events: none; }
+.tur__map {
+  position: absolute; left: var(--gut); bottom: var(--gut); width: min(460px, calc(100vw - 2 * var(--gut)));
+  background: rgba(242,238,231,.94); color: var(--antracit); padding: .55rem .6rem .6rem; pointer-events: auto;
+  box-shadow: 0 1px 0 var(--linie);
+  transition: width .45s var(--ease), left .45s var(--ease), bottom .45s var(--ease);
+}
+.map-big .tur__map { width: min(1200px, calc(100vw - 2 * var(--gut))); }
+.tur__level { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 .4rem; font: 560 1.05rem/1 var(--display); font-stretch: 62%; letter-spacing: .02em; }
+.tur__maphint { font: 500 .66rem/1 var(--text); color: var(--grafit); letter-spacing: .03em; }
+.is-locked .tur__maphint { visibility: hidden; }
+.tur__plan { position: relative; cursor: crosshair; }
+.tur__plan img { width: 100%; height: auto; }
+.tur__dot {
+  position: absolute; width: 16px; height: 16px; left: 50%; top: 50%;
+  background: var(--verde); clip-path: polygon(50% 0, 100% 100%, 50% 74%, 0 100%);
+}
+.tur__cross { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: rgba(255,255,255,.8); box-shadow: 0 0 0 1px rgba(0,0,0,.25); }
+.is-touch .tur__cross { display: none; }
+.tur__hint {
+  position: absolute; left: 50%; top: calc(50% + 2.2rem); transform: translateX(-50%); margin: 0;
+  font-size: .8rem; color: #fff; background: rgba(31,29,26,.7); padding: .35rem .7rem; white-space: nowrap;
+}
+.is-locked .tur__hint, .is-touch .tur__hint { display: none; }
+.tur__pad { position: absolute; width: 104px; height: 104px; margin: -52px; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; pointer-events: none; }
+.tur__pad span { position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; margin: -22px; border-radius: 50%; background: rgba(242,238,231,.85); }
+
+.tur__notes {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem var(--gut);
+  max-width: var(--max); margin: 0 auto; padding: clamp(2.5rem, 5vw, 4rem) var(--gut) 0; font-size: .9rem;
+}
+.tur__notes dt { font-size: .72rem; letter-spacing: .08em; color: rgba(242,238,231,.6); margin-bottom: .3rem; }
+.tur__notes dd { margin: 0; color: rgba(242,238,231,.9); }
+[data-page="tur"] .cta { margin-top: 0; padding-top: clamp(2.5rem, 5vw, 4rem); }
+@media (max-width: 760px) {
+  .tur__intro { background: linear-gradient(0deg, rgba(31,29,26,.9) 0%, rgba(31,29,26,.7) 55%, rgba(31,29,26,.2) 100%); }
+  .tur__notes { grid-template-columns: 1fr; }
+  .tur__map { width: min(300px, calc(100vw - 2 * var(--gut))); }
+  .tur__maphint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .tur__stage canvas, .tur__map { transition: none; } }

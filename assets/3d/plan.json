@@ -1,0 +1,3 @@
+{"bounds": [-11.8, 11.8, -43, 43],
+ "levels": [{"name": "Parter", "y": 0, "img": "plan-parter.webp"}, {"name": "Mansardă", "y": 2.8, "img": "plan-mansarda.webp"}],
+ "spawns": [{"p": [-17, 0.6, 1.85], "yaw": -1.5708}, {"p": [0.5, 2.9, 0], "yaw": 0}]}

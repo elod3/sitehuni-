@@ -1,0 +1,52 @@
+  <section class="tur" aria-labelledby="tur-title">
+    <div class="tur__stage" id="tur-stage" data-lenis-prevent>
+      <div class="tur__intro" id="tur-intro">
+        <div class="tur__card">
+          <p class="sheet">Planșa 04 — Tur 3D</p>
+          <h1 class="tur__title" id="tur-title">Intră în clădire.</h1>
+          <p class="tur__lead">Modelul 3D e cel din proiect, cu pereții, ușile și mobila desenate de arhitect. Pornești din fața intrării principale; scara din hol te urcă la mansardă.</p>
+          <dl class="tur__keys tur__keys--desk">
+            <div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>mergi</dd></div>
+            <div><dt>mouse</dt><dd>te uiți în jur</dd></div>
+            <div><dt><kbd>Shift</kbd></dt><dd>mergi mai repede</dd></div>
+            <div><dt><kbd>M</kbd></dt><dd>planul mare</dd></div>
+            <div><dt><kbd>Esc</kbd></dt><dd>eliberezi mouse-ul; click pe plan te mută acolo</dd></div>
+          </dl>
+          <dl class="tur__keys tur__keys--touch">
+            <div><dt>degetul stâng</dt><dd>mergi</dd></div>
+            <div><dt>degetul drept</dt><dd>te uiți în jur</dd></div>
+          </dl>
+          <div class="tur__load" id="tur-load">
+            <span class="tur__cota"><span id="tur-load-bar"></span></span>
+            <span class="tur__num" id="tur-load-num">se încarcă modelul</span>
+          </div>
+          <button class="tur__start" id="tur-start" type="button">Se încarcă…</button>
+          <p class="tur__err" id="tur-err" hidden>Browserul tău nu poate desena modelul 3D (lipsește WebGL 2). Încearcă din Chrome, Firefox sau Safari, pe calculator.</p>
+        </div>
+      </div>
+
+      <div class="tur__hud" id="tur-hud" hidden>
+        <div class="tur__map" id="tur-map">
+          <p class="tur__level"><span id="tur-level">Parter</span><span class="tur__maphint">click pe plan te mută acolo</span></p>
+          <div class="tur__plan">
+            <img id="tur-map-img" alt="" width="1600" height="439">
+            <span class="tur__dot" id="tur-dot"></span>
+          </div>
+        </div>
+        <span class="tur__cross" aria-hidden="true"></span>
+        <p class="tur__hint" id="tur-hint">Click pe scenă ca să privești cu mouse-ul</p>
+      </div>
+      <div class="tur__pad" id="tur-pad" hidden><span id="tur-knob"></span></div>
+    </div>
+
+    <dl class="tur__notes">
+      <div><dt>Sursa</dt><dd>Modelul IFC exportat din ArchiCAD, cu parterul, mansarda și acoperișul ansamblului.</dd></div>
+      <div><dt>Materiale</dt><dd>Orientative. Finisajele exacte sunt în <a href="ansamblu.html" data-label="Ansamblul">fișa tehnică</a>.</dd></div>
+      <div><dt>Apartamente</dt><dd><a href="tip-1.html" data-label="Tip 1 · 71,3 m²">Tip 1 · 71,3 m²</a> · <a href="tip-2.html" data-label="Tip 2 · 122,26 m²">Tip 2 · 122,26 m²</a></dd></div>
+    </dl>
+  </section>
+
+<script type="importmap">
+{ "imports": { "three": "./assets/vendor/three/three.module.min.js", "three/addons/": "./assets/vendor/three/addons/" } }
+</script>
+<script type="module" src="assets/js/tur.js"></script>
