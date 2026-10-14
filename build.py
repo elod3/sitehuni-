@@ -9,6 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 SRC = ROOT / "src"
 
+# Adresa publică (canonical, og:url, og:image). Când DNS-ul pentru arcadianresidence.ro
+# trimite spre GitHub Pages, devine "https://www.arcadianresidence.ro/" și se adaugă fișierul CNAME.
+SITE = "https://elod3.github.io/sitehuni-/"
+
 PAGES = {
     "index.html": {
         "title": "Arcadian Residence — apartamente nZEB în Ceuașu de Câmpie, Mureș",
@@ -37,7 +41,7 @@ PAGES = {
     },
     "contact.html": {
         "title": "Rezervare — Arcadian Residence",
-        "desc": "Rezervă-ți apartamentul în Arcadian Residence. Tur virtual 3D cu echipa de vânzări: 0770 916 916.",
+        "desc": "Rezervă-ți apartamentul în Arcadian Residence. Tur virtual 3D cu echipa de vânzări: 0770 916 916, arcadianresidence@gmail.com.",
         "page": "contact", "nav": "contact", "bar": "dark", "preload": "assets/img/ext-calcan-1800.webp",
     },
 }
@@ -74,6 +78,7 @@ def build():
         if "type" in p:
             attrs += f' data-type="{p["type"]}"'
         html = (part("layout.html")
+                .replace("{{site}}", SITE)
                 .replace("{{file}}", "" if out == "index.html" else out)
                 .replace("{{title}}", p["title"])
                 .replace("{{desc}}", p["desc"])

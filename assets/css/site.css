@@ -288,10 +288,13 @@ h2 { font-size: clamp(2.2rem, 1.3rem + 3.6vw, 4.6rem); max-width: 16ch; text-wra
 
 .foot { background: var(--antracit); color: rgba(242,238,231,.55); padding: 1.4rem var(--gut) 2rem; font-size: .72rem; border-top: 1px solid rgba(242,238,231,.12); }
 .foot__in { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: .5rem 2.5rem; }
-.foot__mark { grid-row: span 2; align-self: center; line-height: 0; color: var(--tencuiala); --logo-ink: var(--tencuiala); --logo-gold: #c9ad7c; }
+.foot__mark { grid-row: span 3; align-self: center; line-height: 0; color: var(--tencuiala); --logo-ink: var(--tencuiala); --logo-gold: #c9ad7c; }
 .foot__mark svg { display: block; width: 7.5rem; height: auto; aspect-ratio: 1165 / 598; }
 .foot p { margin: 0; }
 .foot__copy { color: rgba(242,238,231,.8); }
+.foot__contact { font-size: .82rem; }
+.foot__contact a { color: var(--tencuiala); font-weight: 600; text-decoration: none; }
+.foot__contact a:hover { color: #8fc2a6; text-decoration: underline; text-underline-offset: .3em; }
 @media (max-width: 560px) { .foot__in { grid-template-columns: 1fr; } .foot__mark { grid-row: auto; margin-bottom: .6rem; } }
 
 /* ---------- ecrane înguste ---------- */
