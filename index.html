@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/ext-fatada-1800.webp" as="image" type="image/webp">
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/ext-fatada-900.webp 900w, assets/img/ext-fatada-1800.webp 1800w, assets/img/ext-fatada-hd.webp 2048w" imagesizes="(max-aspect-ratio: 16/9) 179vh, 100vw" fetchpriority="high">
 <script>
 /* Starea de pornire, înainte de primul paint: animațiile doar fără „reduce motion”;
    cortina rămâne închisă când venim dintr-o tranziție; loaderul doar la prima vizită. */
@@ -30,10 +30,14 @@
   var d = document.documentElement;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   d.classList.add('js-motion');
-  try {
-    if (sessionStorage.getItem('arc-nav')) d.classList.add('is-arriving');
-    else if (!sessionStorage.getItem('arc-seen')) d.classList.add('is-loading');
-  } catch (e) {}
+  var nav = null, seen = null;
+  try { nav = sessionStorage.getItem('arc-nav'); seen = sessionStorage.getItem('arc-seen'); } catch (e) {}
+  if (nav) d.classList.add('is-arriving');
+  else {
+    if (!seen) d.classList.add('is-loading');
+    /* fără cortină, antetul paginilor interioare intră din CSS, fără să aștepte scripturile */
+    d.classList.add('is-cold');
+  }
 })();
 </script>
 <link rel="stylesheet" href="assets/vendor/lenis.css">
@@ -44,12 +48,12 @@
   <div class="loader__seams" aria-hidden="true"></div>
   <p class="loader__place">Ceuașu de Câmpie · Județul Mureș</p>
   <div class="loader__frame" id="loader-frame">
-    <img src="assets/img/ext-calcan-900.webp" data-cap="Capătul ansamblului" alt="" width="900" height="503">
-    <img src="assets/img/t1-living-900.webp" data-cap="Living · Tip 1" alt="" width="900" height="516">
-    <img src="assets/img/t2-birou-900.webp" data-cap="Birou · Tip 2" alt="" width="900" height="572">
-    <img src="assets/img/ext-alee-900.webp" data-cap="Aleea dintre locuințe" alt="" width="900" height="470">
-    <img src="assets/img/t2-living-900.webp" data-cap="Living · Tip 2" alt="" width="900" height="533">
-    <img src="assets/img/ext-fatada-1800.webp" data-cap="Fațada spre grădini" alt="" width="1800" height="1005">
+    <img src="assets/img/ext-calcan-900.webp" srcset="assets/img/ext-calcan-480.webp 480w, assets/img/ext-calcan-900.webp 900w" sizes="(max-width: 700px) 78vw, min(52vw, 620px)" decoding="async" data-cap="Capătul ansamblului" alt="" width="900" height="503">
+    <img src="assets/img/t1-living-900.webp" srcset="assets/img/t1-living-480.webp 480w, assets/img/t1-living-900.webp 900w" sizes="(max-width: 700px) 78vw, min(52vw, 620px)" decoding="async" data-cap="Living · Tip 1" alt="" width="900" height="516">
+    <img src="assets/img/t2-birou-900.webp" srcset="assets/img/t2-birou-480.webp 480w, assets/img/t2-birou-900.webp 900w" sizes="(max-width: 700px) 78vw, min(52vw, 620px)" decoding="async" data-cap="Birou · Tip 2" alt="" width="900" height="572">
+    <img src="assets/img/ext-alee-900.webp" srcset="assets/img/ext-alee-480.webp 480w, assets/img/ext-alee-900.webp 900w" sizes="(max-width: 700px) 78vw, min(52vw, 620px)" decoding="async" data-cap="Aleea dintre locuințe" alt="" width="900" height="470">
+    <img src="assets/img/t2-living-900.webp" srcset="assets/img/t2-living-480.webp 480w, assets/img/t2-living-900.webp 900w" sizes="(max-width: 700px) 78vw, min(52vw, 620px)" decoding="async" data-cap="Living · Tip 2" alt="" width="900" height="533">
+    <img src="assets/img/ext-fatada-1800.webp" srcset="assets/img/ext-fatada-480.webp 480w, assets/img/ext-fatada-900.webp 900w" sizes="(max-width: 700px) 78vw, min(52vw, 620px)" decoding="async" data-cap="Fațada spre grădini" alt="" width="1800" height="1005">
   </div>
   <p class="loader__mark"><svg viewBox="0 0 1165 598" role="img" aria-label="Arcadian Residence"><use href="assets/img/brand/logo-sprite.svg#lockup"/></svg></p>
   <p class="loader__count"><span id="loader-cap">&nbsp;</span><b id="loader-idx">00 / 06</b></p>
@@ -63,7 +67,7 @@
         <a href="ansamblu.html" data-label="Ansamblul">Ansamblul</a>
         <a href="tip-1.html" data-label="Tip 1 · 71,3 m²">Tip 1</a>
         <a href="tip-2.html" data-label="Tip 2 · 122,26 m²">Tip 2</a>
-        <a href="tur.html" data-label="Tur 3D">Tur 3D</a>
+        <a href="tur.html" class="only-desk" data-label="Tur 3D">Tur 3D</a>
         <a href="contact.html" data-label="Rezervare">Rezervare</a>
   </nav>
   <a class="bar__tel" href="tel:+40770916916">0770 916 916</a>
@@ -72,11 +76,11 @@
 
 <div class="menu" id="menu" hidden>
   <ol class="menu__list">
-        <li><a href="ansamblu.html" data-label="Ansamblul"><span>01</span>Ansamblul</a></li>
-        <li><a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span>02</span>Tip 1 · 71,3 m²</a></li>
-        <li><a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span>03</span>Tip 2 · 122,26 m²</a></li>
-        <li><a href="tur.html" data-label="Tur 3D"><span>04</span>Tur 3D</a></li>
-        <li><a href="contact.html" data-label="Rezervare"><span>05</span>Rezervare</a></li>
+        <li><a href="ansamblu.html" data-label="Ansamblul"><span></span>Ansamblul</a></li>
+        <li><a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span></span>Tip 1 · 71,3 m²</a></li>
+        <li><a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span></span>Tip 2 · 122,26 m²</a></li>
+        <li class="only-desk"><a href="tur.html" data-label="Tur 3D"><span></span>Tur 3D</a></li>
+        <li><a href="contact.html" data-label="Rezervare"><span></span>Rezervare</a></li>
   </ol>
   <div class="menu__contact">
     <a class="menu__tel" href="tel:+40770916916"><span>Vânzări</span>0770 916 916</a>
@@ -89,7 +93,7 @@
   <!-- 00 · Copertă -->
   <section class="hero" aria-label="Arcadian Residence">
     <figure class="hero__img">
-      <img src="assets/img/ext-fatada-1800.webp" srcset="assets/img/ext-fatada-900.webp 900w, assets/img/ext-fatada-1800.webp 1800w, assets/img/ext-fatada-hd.webp 2048w" sizes="(max-aspect-ratio: 16/9) 179vh, 100vw" width="2048" height="1144" alt="Fațada ansamblului la apus: parter tencuit alb, etaj îmbrăcat în tablă fălțuită antracit, grădini private în față">
+      <img src="assets/img/ext-fatada-1800.webp" srcset="assets/img/ext-fatada-900.webp 900w, assets/img/ext-fatada-1800.webp 1800w, assets/img/ext-fatada-hd.webp 2048w" sizes="(max-aspect-ratio: 16/9) 179vh, 100vw" width="2048" height="1144" alt="Fațada ansamblului la apus: parter tencuit alb, etaj îmbrăcat în tablă fălțuită antracit, grădini private în față" fetchpriority="high">
       <div class="seams" aria-hidden="true"></div>
     </figure>
     <div class="hero__text">
@@ -145,7 +149,7 @@
     <div class="cta__actions">
       <a class="call call--small" href="tel:+40770916916"><span class="call__label">Sună acum</span><span class="call__num">0770 916 916</span></a>
       <a class="cta__link" href="https://wa.me/40770916916" rel="noopener">WhatsApp</a>
-      <a class="cta__link" href="tur.html" data-label="Tur 3D">Plimbă-te prin clădire</a>
+      <a class="cta__link only-desk" href="tur.html" data-label="Tur 3D">Plimbă-te prin clădire</a>
       <a class="cta__link" href="contact.html" data-label="Rezervare">Detalii rezervare</a>
     </div>
   </div>

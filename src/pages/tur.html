@@ -5,6 +5,10 @@
           <p class="sheet">Planșa 04 — Tur 3D</p>
           <h1 class="tur__title" id="tur-title">Intră în clădire.</h1>
           <p class="tur__lead">Modelul 3D e cel din proiect, cu pereții, ușile și mobila desenate de arhitect. Pornești din fața intrării principale; scara din hol te urcă la mansardă.</p>
+          <div class="tur__phone">
+            <p>Turul merge doar pe calculator: modelul are 17 MB și se conduce cu tastatura și mouse-ul. Deschide pagina pe laptop, iar până atunci vezi apartamentele.</p>
+            <p class="tur__phonelinks"><a href="tip-1.html" data-label="Tip 1 · 71,3 m²">Tip 1 · 71,3 m²</a><a href="tip-2.html" data-label="Tip 2 · 122,26 m²">Tip 2 · 122,26 m²</a><a href="contact.html" data-label="Rezervare">Rezervare</a></p>
+          </div>
           <dl class="tur__keys tur__keys--desk">
             <div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>mergi</dd></div>
             <div><dt>mouse</dt><dd>te uiți în jur</dd></div>
@@ -49,4 +53,7 @@
 <script type="importmap">
 { "imports": { "three": "./assets/vendor/three/three.module.min.js", "three/addons/": "./assets/vendor/three/addons/" } }
 </script>
-<script type="module" src="assets/js/tur.js"></script>
+<script type="module">
+  // pe telefon nu se descarcă nici three.js, nici modelul; condiția e aceeași cu PHONE din site.css
+  if (!matchMedia('(max-width: 760px), (hover: none) and (pointer: coarse) and (max-height: 500px)').matches) import('./assets/js/tur.js');
+</script>

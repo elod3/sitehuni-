@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/ext-alee-1800.webp" as="image" type="image/webp">
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/ext-alee-900.webp 900w, assets/img/ext-alee-1800.webp 1800w, assets/img/ext-alee-hd.webp 2041w" imagesizes="(max-width: 700px) 120vw, 100vw" fetchpriority="high">
 <script>
 /* Starea de pornire, înainte de primul paint: animațiile doar fără „reduce motion”;
    cortina rămâne închisă când venim dintr-o tranziție; loaderul doar la prima vizită. */
@@ -30,10 +30,14 @@
   var d = document.documentElement;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   d.classList.add('js-motion');
-  try {
-    if (sessionStorage.getItem('arc-nav')) d.classList.add('is-arriving');
-    else if (!sessionStorage.getItem('arc-seen')) d.classList.add('is-loading');
-  } catch (e) {}
+  var nav = null, seen = null;
+  try { nav = sessionStorage.getItem('arc-nav'); seen = sessionStorage.getItem('arc-seen'); } catch (e) {}
+  if (nav) d.classList.add('is-arriving');
+  else {
+    if (!seen) d.classList.add('is-loading');
+    /* fără cortină, antetul paginilor interioare intră din CSS, fără să aștepte scripturile */
+    d.classList.add('is-cold');
+  }
 })();
 </script>
 <link rel="stylesheet" href="assets/vendor/lenis.css">
@@ -49,7 +53,7 @@
         <a href="ansamblu.html" aria-current="page" data-label="Ansamblul">Ansamblul</a>
         <a href="tip-1.html" data-label="Tip 1 · 71,3 m²">Tip 1</a>
         <a href="tip-2.html" data-label="Tip 2 · 122,26 m²">Tip 2</a>
-        <a href="tur.html" data-label="Tur 3D">Tur 3D</a>
+        <a href="tur.html" class="only-desk" data-label="Tur 3D">Tur 3D</a>
         <a href="contact.html" data-label="Rezervare">Rezervare</a>
   </nav>
   <a class="bar__tel" href="tel:+40770916916">0770 916 916</a>
@@ -58,11 +62,11 @@
 
 <div class="menu" id="menu" hidden>
   <ol class="menu__list">
-        <li><a href="ansamblu.html" aria-current="page" data-label="Ansamblul"><span>01</span>Ansamblul</a></li>
-        <li><a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span>02</span>Tip 1 · 71,3 m²</a></li>
-        <li><a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span>03</span>Tip 2 · 122,26 m²</a></li>
-        <li><a href="tur.html" data-label="Tur 3D"><span>04</span>Tur 3D</a></li>
-        <li><a href="contact.html" data-label="Rezervare"><span>05</span>Rezervare</a></li>
+        <li><a href="ansamblu.html" aria-current="page" data-label="Ansamblul"><span></span>Ansamblul</a></li>
+        <li><a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span></span>Tip 1 · 71,3 m²</a></li>
+        <li><a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span></span>Tip 2 · 122,26 m²</a></li>
+        <li class="only-desk"><a href="tur.html" data-label="Tur 3D"><span></span>Tur 3D</a></li>
+        <li><a href="contact.html" data-label="Rezervare"><span></span>Rezervare</a></li>
   </ol>
   <div class="menu__contact">
     <a class="menu__tel" href="tel:+40770916916"><span>Vânzări</span>0770 916 916</a>
@@ -79,7 +83,7 @@
     </div>
     <p class="phead__lede">Arhitectură contemporană pe parter și un etaj: grădini private la parter, locuri de parcare dedicate și 40% spații verzi.</p>
     <figure class="phead__img">
-      <img src="assets/img/ext-alee-1800.webp" srcset="assets/img/ext-alee-900.webp 900w, assets/img/ext-alee-1800.webp 1800w, assets/img/ext-alee-hd.webp 2041w" sizes="(max-width: 700px) 120vw, 100vw" width="2041" height="1065" alt="Aleea pietonală dintre locuințe, cu bănci din lemn, stâlpi de iluminat joși și arbori aliniați">
+      <img src="assets/img/ext-alee-1800.webp" srcset="assets/img/ext-alee-900.webp 900w, assets/img/ext-alee-1800.webp 1800w, assets/img/ext-alee-hd.webp 2041w" sizes="(max-width: 700px) 120vw, 100vw" width="2041" height="1065" alt="Aleea pietonală dintre locuințe, cu bănci din lemn, stâlpi de iluminat joși și arbori aliniați" fetchpriority="high">
     </figure>
   </header>
 
@@ -226,7 +230,7 @@
     <div class="cta__actions">
       <a class="call call--small" href="tel:+40770916916"><span class="call__label">Sună acum</span><span class="call__num">0770 916 916</span></a>
       <a class="cta__link" href="https://wa.me/40770916916" rel="noopener">WhatsApp</a>
-      <a class="cta__link" href="tur.html" data-label="Tur 3D">Plimbă-te prin clădire</a>
+      <a class="cta__link only-desk" href="tur.html" data-label="Tur 3D">Plimbă-te prin clădire</a>
       <a class="cta__link" href="contact.html" data-label="Rezervare">Detalii rezervare</a>
     </div>
   </div>

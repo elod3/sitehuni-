@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/ext-fatada-1800.webp" as="image" type="image/webp">
+
 <script>
 /* Starea de pornire, înainte de primul paint: animațiile doar fără „reduce motion”;
    cortina rămâne închisă când venim dintr-o tranziție; loaderul doar la prima vizită. */
@@ -30,10 +30,14 @@
   var d = document.documentElement;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   d.classList.add('js-motion');
-  try {
-    if (sessionStorage.getItem('arc-nav')) d.classList.add('is-arriving');
-    else if (!sessionStorage.getItem('arc-seen')) d.classList.add('is-loading');
-  } catch (e) {}
+  var nav = null, seen = null;
+  try { nav = sessionStorage.getItem('arc-nav'); seen = sessionStorage.getItem('arc-seen'); } catch (e) {}
+  if (nav) d.classList.add('is-arriving');
+  else {
+    if (!seen) d.classList.add('is-loading');
+    /* fără cortină, antetul paginilor interioare intră din CSS, fără să aștepte scripturile */
+    d.classList.add('is-cold');
+  }
 })();
 </script>
 <link rel="stylesheet" href="assets/vendor/lenis.css">
@@ -49,7 +53,7 @@
         <a href="ansamblu.html" data-label="Ansamblul">Ansamblul</a>
         <a href="tip-1.html" data-label="Tip 1 · 71,3 m²">Tip 1</a>
         <a href="tip-2.html" data-label="Tip 2 · 122,26 m²">Tip 2</a>
-        <a href="tur.html" aria-current="page" data-label="Tur 3D">Tur 3D</a>
+        <a href="tur.html" aria-current="page" class="only-desk" data-label="Tur 3D">Tur 3D</a>
         <a href="contact.html" data-label="Rezervare">Rezervare</a>
   </nav>
   <a class="bar__tel" href="tel:+40770916916">0770 916 916</a>
@@ -58,11 +62,11 @@
 
 <div class="menu" id="menu" hidden>
   <ol class="menu__list">
-        <li><a href="ansamblu.html" data-label="Ansamblul"><span>01</span>Ansamblul</a></li>
-        <li><a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span>02</span>Tip 1 · 71,3 m²</a></li>
-        <li><a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span>03</span>Tip 2 · 122,26 m²</a></li>
-        <li><a href="tur.html" aria-current="page" data-label="Tur 3D"><span>04</span>Tur 3D</a></li>
-        <li><a href="contact.html" data-label="Rezervare"><span>05</span>Rezervare</a></li>
+        <li><a href="ansamblu.html" data-label="Ansamblul"><span></span>Ansamblul</a></li>
+        <li><a href="tip-1.html" data-label="Tip 1 · 71,3 m²"><span></span>Tip 1 · 71,3 m²</a></li>
+        <li><a href="tip-2.html" data-label="Tip 2 · 122,26 m²"><span></span>Tip 2 · 122,26 m²</a></li>
+        <li class="only-desk"><a href="tur.html" aria-current="page" data-label="Tur 3D"><span></span>Tur 3D</a></li>
+        <li><a href="contact.html" data-label="Rezervare"><span></span>Rezervare</a></li>
   </ol>
   <div class="menu__contact">
     <a class="menu__tel" href="tel:+40770916916"><span>Vânzări</span>0770 916 916</a>
@@ -79,6 +83,10 @@
           <p class="sheet">Planșa 04 — Tur 3D</p>
           <h1 class="tur__title" id="tur-title">Intră în clădire.</h1>
           <p class="tur__lead">Modelul 3D e cel din proiect, cu pereții, ușile și mobila desenate de arhitect. Pornești din fața intrării principale; scara din hol te urcă la mansardă.</p>
+          <div class="tur__phone">
+            <p>Turul merge doar pe calculator: modelul are 17 MB și se conduce cu tastatura și mouse-ul. Deschide pagina pe laptop, iar până atunci vezi apartamentele.</p>
+            <p class="tur__phonelinks"><a href="tip-1.html" data-label="Tip 1 · 71,3 m²">Tip 1 · 71,3 m²</a><a href="tip-2.html" data-label="Tip 2 · 122,26 m²">Tip 2 · 122,26 m²</a><a href="contact.html" data-label="Rezervare">Rezervare</a></p>
+          </div>
           <dl class="tur__keys tur__keys--desk">
             <div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>mergi</dd></div>
             <div><dt>mouse</dt><dd>te uiți în jur</dd></div>
@@ -123,7 +131,10 @@
 <script type="importmap">
 { "imports": { "three": "./assets/vendor/three/three.module.min.js", "three/addons/": "./assets/vendor/three/addons/" } }
 </script>
-<script type="module" src="assets/js/tur.js"></script>
+<script type="module">
+  // pe telefon nu se descarcă nici three.js, nici modelul; condiția e aceeași cu PHONE din site.css
+  if (!matchMedia('(max-width: 760px), (hover: none) and (pointer: coarse) and (max-height: 500px)').matches) import('./assets/js/tur.js');
+</script>
 
 </main>
 <aside class="cta" aria-label="Rezervare">
@@ -133,7 +144,7 @@
     <div class="cta__actions">
       <a class="call call--small" href="tel:+40770916916"><span class="call__label">Sună acum</span><span class="call__num">0770 916 916</span></a>
       <a class="cta__link" href="https://wa.me/40770916916" rel="noopener">WhatsApp</a>
-      <a class="cta__link" href="tur.html" data-label="Tur 3D">Plimbă-te prin clădire</a>
+      <a class="cta__link only-desk" href="tur.html" data-label="Tur 3D">Plimbă-te prin clădire</a>
       <a class="cta__link" href="contact.html" data-label="Rezervare">Detalii rezervare</a>
     </div>
   </div>
