@@ -301,11 +301,13 @@
     const head = $('.phead'); if (!head) return;
     const img = $('.phead__img img', head);
     const tl = gsap.timeline({ onComplete: () => html.classList.remove('js-motion') });
-    // la prima intrare textul îl animă CSS-ul (is-cold); după cortină îl animă gsap
-    if (!html.classList.contains('is-cold')) tl
+    // la prima intrare (is-cold) textul îl animă CSS-ul, iar poza rămâne la vedere de la primul
+    // cadru (e LCP-ul paginii); storul care se ridică rămâne pentru intrarea după cortină
+    if (html.classList.contains('is-cold')) tl.fromTo(img, { scale: 1.06 }, { scale: 1, duration: 1.6, ease: 'power2.out' }, 0);
+    else tl
       .fromTo($('.phead__title', head), { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .9, ease: 'power3.out' }, .1)
-      .to([$('.sheet', head), $('.phead__lede', head)], { opacity: 1, duration: .6, stagger: .1 }, .35);
-    tl.fromTo($('.phead__img', head), { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.3, ease: 'power3.inOut' }, .2)
+      .to([$('.sheet', head), $('.phead__lede', head)], { opacity: 1, duration: .6, stagger: .1 }, .35)
+      .fromTo($('.phead__img', head), { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.3, ease: 'power3.inOut' }, .2)
       .fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.8, ease: 'power2.out' }, .2);
     gsap.fromTo(img, { yPercent: 0 }, { yPercent: -12, ease: 'none', scrollTrigger: { trigger: head, start: 'top top', end: 'bottom top', scrub: true } });
   }
